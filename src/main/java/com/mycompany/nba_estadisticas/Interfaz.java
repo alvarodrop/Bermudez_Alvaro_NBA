@@ -197,10 +197,10 @@ public class Interfaz extends javax.swing.JFrame {
         }
 
         // Calcular eFG
-        double eFG = (anotados2 + 1.5 * anotados3) / (double) totalTiros;
-
+        double eFG = ((anotados2 + 1.5 * anotados3) / (double) totalTiros) * 100;
+       
         // Mostrar el resultado en la interfaz de usuario
-        String resultado = String.format("eFG: %.2f", eFG);  // Formatear el resultado a 2 decimales
+        String resultado = "eFG: " + String.format("%.2f", eFG) + "%";// Formatear el resultado a 2 decimales
 
         // Crear una instancia de la ventana Resultado para mostrar el resultado
         Resultado resultadoVentana = new Resultado(resultado);  // Pasamos el resultado al constructor
