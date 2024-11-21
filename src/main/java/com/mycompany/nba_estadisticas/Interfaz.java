@@ -41,11 +41,14 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         anotados3 = new javax.swing.JSpinner();
-        totalTiros = new javax.swing.JSpinner();
+        totalTiros2 = new javax.swing.JSpinner();
         anotados2 = new javax.swing.JSpinner();
         FGButton = new javax.swing.JButton();
         eFGButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        totalTiros3 = new javax.swing.JSpinner();
+        Guardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(173, 216, 230));
@@ -71,19 +74,20 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel7.setText("Anotados de 2");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         getContentPane().add(jLabel7, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel8.setText("Total");
+        jLabel8.setText("Total tiros de 2");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         getContentPane().add(jLabel8, gridBagConstraints);
 
+        anotados3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         anotados3.setPreferredSize(new java.awt.Dimension(64, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -93,19 +97,21 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         getContentPane().add(anotados3, gridBagConstraints);
 
-        totalTiros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        totalTiros.setPreferredSize(new java.awt.Dimension(64, 30));
+        totalTiros2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        totalTiros2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        totalTiros2.setPreferredSize(new java.awt.Dimension(64, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(totalTiros, gridBagConstraints);
+        getContentPane().add(totalTiros2, gridBagConstraints);
 
+        anotados2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         anotados2.setPreferredSize(new java.awt.Dimension(64, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         getContentPane().add(anotados2, gridBagConstraints);
@@ -119,7 +125,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 10;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
@@ -135,7 +141,6 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 10;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         getContentPane().add(eFGButton, gridBagConstraints);
@@ -145,135 +150,195 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 5;
         gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         getContentPane().add(jButton1, gridBagConstraints);
+
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabel1.setText("Total Tiros de 3");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        getContentPane().add(jLabel1, gridBagConstraints);
+
+        totalTiros3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        totalTiros3.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        getContentPane().add(totalTiros3, gridBagConstraints);
+
+        Guardar.setText("Excel");
+        Guardar.setPreferredSize(new java.awt.Dimension(72, 30));
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        getContentPane().add(Guardar, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void FGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FGButtonActionPerformed
-        // Obtener valores de los spinners
-        int tiros2 = (int) anotados2.getValue(); // Tiros de 2 anotados
-        int tiros3 = (int) anotados3.getValue(); // Tiros de 3 anotados
-        int tirosTotales = (int) totalTiros.getValue(); // Total de tiros intentados
+        // Calcular FG
+        double fg = calcularFG();
+        if (fg == -1) return; // Validación fallida, salir del método
 
-        // Validar que el total de tiros no sea 0 para evitar división por 0
-        if (tirosTotales == 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros no puede ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Calcular el FG: (Tiros anotados / Total tiros intentados) * 100
-        int tirosAnotados = tiros2 + tiros3; // Sumar los tiros de 2 y 3 anotados
-        double fg = ((double) tirosAnotados / tirosTotales) * 100;
-
-        // Calcular el eFG
-        double efg = ((double) tiros2 + (0.5 * tiros3)) / tirosTotales * 100;
-
-        // Crear el texto para el resultado
+        // Mostrar el resultado
         String resultadoFG = "FG: " + String.format("%.2f", fg) + "%";
-
-        // Mostrar el resultado en otro JFrame (Resultado.java)
         Resultado resultadoFrame = new Resultado(resultadoFG);
         resultadoFrame.setVisible(true);
-
-        // Guardar los datos en Excel
-        guardarEnExcel(tiros2, tiros3, tirosTotales, fg, 0);
     }//GEN-LAST:event_FGButtonActionPerformed
+    
+    
+    private double calcularFG() {
+        // Obtener valores
+        int tiros2 = (int) anotados2.getValue();
+        int tiros3 = (int) anotados3.getValue();
+        int tirosTotales = Integer.parseInt(totalTiros2.getValue().toString()) + Integer.parseInt(totalTiros3.getValue().toString());
 
+        // Validar tiros totales
+        if (tirosTotales == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros no puede ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return -1; // Indicar error
+        }
+
+        // Calcular FG
+        return ((double) (tiros2 + tiros3) / tirosTotales) * 100;
+    }
+    
     private void eFGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eFGButtonActionPerformed
-        // Obtener los valores de los Spinners
-        int anotados2 = (int) this.anotados2.getValue();  // Tiros de 2 anotados
-        int anotados3 = (int) this.anotados3.getValue();  // Tiros de 3 anotados
-        int totalTiros = (int) this.totalTiros.getValue();  // Tiros totales
+        // Calcular eFG
+        double efg = calcularEFG();
+        if (efg == -1) return; // Validación fallida, salir del método
 
-        // Comprobar que los tiros totales no sean 0 para evitar división por 0
-        if (totalTiros == 0) {
-            String error = "Los tiros totales no pueden ser 0.";
-            Resultado resultadoVentana = new Resultado(error);
-            resultadoVentana.setVisible(true);
-            return;
+        // Mostrar el resultado
+        String resultadoEFG = "eFG: " + String.format("%.2f", efg) + "%";
+        Resultado resultadoFrame = new Resultado(resultadoEFG);
+        resultadoFrame.setVisible(true);   
+        //Hacemos visible el frame 
+    }//GEN-LAST:event_eFGButtonActionPerformed
+    
+    //Funcion para calcular efg
+    private double calcularEFG() {
+        // Obtener valores
+        int tiros2 = (int) anotados2.getValue();
+        int tiros3 = (int) anotados3.getValue();
+        int tirosTotales = Integer.parseInt(totalTiros2.getValue().toString()) + Integer.parseInt(totalTiros3.getValue().toString());
+
+        // Validar tiros totales
+        if (tirosTotales == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros no puede ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return -1; // Indicar error
         }
 
         // Calcular eFG
-        double eFG = ((anotados2 + 1.5 * anotados3) / (double) totalTiros) * 100;
-       
-        // Mostrar el resultado en la interfaz de usuario
-        String resultado = "eFG: " + String.format("%.2f", eFG) + "%";// Formatear el resultado a 2 decimales
-
-        // Crear una instancia de la ventana Resultado para mostrar el resultado
-        Resultado resultadoVentana = new Resultado(resultado);  // Pasamos el resultado al constructor
-        resultadoVentana.setVisible(true);
-
-        // Guardar los datos en Excel
-        guardarEnExcel(anotados2, anotados3, totalTiros, 0, eFG); // Aquí, pasamos eFG y dejamos FG en 0
+        return ((tiros2 + (0.5 * tiros3)) / tirosTotales) * 100;
+    }
     
-    }//GEN-LAST:event_eFGButtonActionPerformed
+    //Guardar en el excel
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        // Calcular FG y eFG
+        double fg = calcularFG();
+        double efg = calcularEFG();
+        if (fg == -1 || efg == -1) return; // Validación fallida, salir del método
+
+        // Obtener valores necesarios
+        int tirosAnotados2 = (int) anotados2.getValue();
+        int totalTirosD2 = (int) totalTiros2.getValue();
+        int tirosAnotados3 = (int) anotados3.getValue();
+        int totalTirosD3 = (Integer) totalTiros2.getValue();
+
+        int tirosTotales = totalTirosD2 + totalTirosD3; // Sumar los totales de tiros
+
+        // Guardar en Excel
+        guardarEnExcel(tirosAnotados2, tirosAnotados3, totalTirosD2, totalTirosD3, tirosTotales, fg, efg);                
+    }//GEN-LAST:event_GuardarActionPerformed
 
     
 
 
     private static final String FILE_PATH = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\nba_estadisticas\\Estadisticas_Baloncesto.xlsx";
 
-    public void guardarEnExcel(int tiros2, int tiros3, int totalTiros, double fg, double efg) {
-        File excelFile = new File(FILE_PATH);
-        Workbook workbook = null;
+   public void guardarEnExcel(int anotados2, int anotados3, int totalTiros2, int totalTiros3, int totalTiros, double fg, double efg) {
+    File excelFile = new File(FILE_PATH);
+    Workbook workbook = null;
 
+    try {
+        // Si el archivo no existe, creamos uno nuevo desde cero
+        if (!excelFile.exists()) {
+            workbook = new XSSFWorkbook(); // Crear un nuevo libro de trabajo
+        } else {
+            // Si el archivo existe, lo abrimos
+            FileInputStream fileInputStream = new FileInputStream(excelFile);
+            workbook = new XSSFWorkbook(fileInputStream);
+        }
+
+        // Intentamos acceder a la primera hoja, si no existe, la creamos
+        Sheet sheet = workbook.getSheet("Estadísticas Baloncesto");
+        if (sheet == null) {
+            sheet = workbook.createSheet("Estadísticas Baloncesto"); // Crear nueva hoja si no existe
+        }
+
+        // Verificamos si el archivo está vacío o no
+        int lastRowNum = sheet.getPhysicalNumberOfRows(); // Obtener el número real de filas (sin contar las vacías)
+        Row newRow = sheet.createRow(lastRowNum); // Crear una nueva fila debajo de la última fila con datos
+
+        if (lastRowNum == 0) {  // Si no hay datos, crear los encabezados
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Anotados 2");
+            headerRow.createCell(1).setCellValue("Anotados 3");
+            headerRow.createCell(2).setCellValue("Tiros de 2");
+            headerRow.createCell(3).setCellValue("Tiros de 3");
+            headerRow.createCell(4).setCellValue("Total Tiros");
+            headerRow.createCell(5).setCellValue("FG (%)");
+            headerRow.createCell(6).setCellValue("eFG (%)");
+
+            // Después de crear los encabezados, creamos la primera fila de datos
+            newRow = sheet.createRow(1); // La primera fila de datos se pondrá debajo de los encabezados
+        }
+
+        // Añadir los datos a la nueva fila
+        newRow.createCell(0).setCellValue(anotados2);  // Anotados de 2
+        newRow.createCell(1).setCellValue(anotados3);  // Anotados de 3
+        newRow.createCell(2).setCellValue(totalTiros2);  // Tiros de 2
+        newRow.createCell(3).setCellValue(totalTiros3);  // Tiros de 3
+        newRow.createCell(4).setCellValue(totalTiros);  // Total de Tiros
+        newRow.createCell(5).setCellValue(fg);  // FG (%)
+        newRow.createCell(6).setCellValue(efg);  // eFG (%)
+
+        // Escribir los datos en el archivo Excel
+        try (FileOutputStream fileOut = new FileOutputStream(excelFile)) {
+            workbook.write(fileOut);
+            System.out.println("Archivo Excel guardado con éxito");
+        }
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
         try {
-            // Si el archivo ya existe, lo abrimos, si no, creamos uno nuevo
-            if (excelFile.exists()) {
-                FileInputStream fileInputStream = new FileInputStream(excelFile);
-                workbook = new XSSFWorkbook(fileInputStream);
-            } else {
-                workbook = new XSSFWorkbook(); // Si no existe, creamos un nuevo libro de trabajo
+            if (workbook != null) {
+                workbook.close();  // Cerrar el libro de trabajo
             }
-
-            // Crear hoja de trabajo (sheet)
-            Sheet sheet = workbook.getSheetAt(0);
-            if (sheet == null) {
-                sheet = workbook.createSheet("Estadísticas Baloncesto"); // Si no existe, la creamos
-            }
-
-            // Si el archivo ya tiene datos, encontrar la última fila
-            int lastRowNum = sheet.getLastRowNum();
-            Row newRow = sheet.createRow(lastRowNum + 1); // Crear una nueva fila debajo de la última fila con datos
-
-            // Si el archivo está vacío, agregar los encabezados
-            if (lastRowNum == 0) {
-                Row headerRow = sheet.createRow(0);
-                headerRow.createCell(0).setCellValue("Tiros de 2");
-                headerRow.createCell(1).setCellValue("Tiros de 3");
-                headerRow.createCell(2).setCellValue("Total Tiros");
-                headerRow.createCell(3).setCellValue("FG (%)");
-                headerRow.createCell(4).setCellValue("eFG (%)");
-            }
-
-            // Añadir los datos a la nueva fila
-            newRow.createCell(0).setCellValue(tiros2);
-            newRow.createCell(1).setCellValue(tiros3);
-            newRow.createCell(2).setCellValue(totalTiros);
-            newRow.createCell(3).setCellValue(fg);
-            newRow.createCell(4).setCellValue(efg);
-
-            // Escribir los datos en el archivo Excel
-            try (FileOutputStream fileOut = new FileOutputStream(excelFile)) {
-                workbook.write(fileOut);
-                System.out.println("Archivo Excel guardado con éxito");
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (workbook != null) {
-                    workbook.close();  // Cerrar el libro de trabajo
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
+}
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -309,14 +374,17 @@ public class Interfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton FGButton;
+    private javax.swing.JButton Guardar;
     private javax.swing.JSpinner anotados2;
     private javax.swing.JSpinner anotados3;
     private javax.swing.JButton eFGButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JSpinner totalTiros;
+    private javax.swing.JSpinner totalTiros2;
+    private javax.swing.JSpinner totalTiros3;
     // End of variables declaration//GEN-END:variables
 }
