@@ -12,17 +12,41 @@
     </properties>
     
     <dependencies>
+        <!-- Dependencias de Apache POI -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>5.2.3</version> <!-- Verifica la versión más reciente disponible -->
+            <version>5.2.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.2.3</version> <!-- Verifica la versión más reciente disponible -->
+            <version>5.2.3</version>
+        </dependency>
+
+        <!-- Dependencias de Log4j -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.1</version> <!-- Usa una versión reciente -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.1</version> <!-- Usa una versión reciente -->
+        </dependency>
+        
+        <!-- Excluir log4j de las dependencias de Apache POI si hay conflicto -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>4.1.2</version> <!-- Asegúrate de que sea compatible con tu versión de POI -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
-
-    
 </project>
