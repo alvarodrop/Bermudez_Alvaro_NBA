@@ -8,6 +8,9 @@ package com.mycompany.nba_estadisticas;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+
 
 import java.io.*;
 import java.util.*;
@@ -22,6 +25,39 @@ public class Interfaz extends javax.swing.JFrame {
     private static double totalFg = 0;
     private static double totalEfg = 0;
     private static int numeroDeJugadores = 0;
+    
+    
+    private javax.swing.JTextField nombreTextField;
+    private javax.swing.JTextField anotados3TextField;
+    private javax.swing.JTextField totalTiros3TextField;
+    private javax.swing.JTextField anotados2TextField;
+    private javax.swing.JTextField totalTiros2TextField;
+    private javax.swing.JTextField anotadosLibresTextField;
+    private javax.swing.JTextField totalLibresTextField;
+    private javax.swing.JTextField rebotesDefTextField;
+    private javax.swing.JTextField robosTextField;
+    private javax.swing.JTextField taponesTextField;
+    private javax.swing.JTextField asistenciasTextField;
+    private javax.swing.JTextField rebotesOfTextField;
+    private javax.swing.JTextField perdidasTextField;
+    
+    
+    
+    private JSpinner anotados3Spinner;
+    private JSpinner totalTiros3Spinner;
+    private JSpinner anotados2Spinner;
+    private JSpinner totalTiros2Spinner;
+    private JSpinner anotadosLibresSpinner;
+    private JSpinner totalLibresSpinner;
+    private JSpinner rebotesDefSpinner;
+    private JSpinner robosSpinner;
+    private JSpinner taponesSpinner;
+    private JSpinner asistenciasSpinner;
+    private JSpinner rebotesOfSpinner;
+    private JSpinner perdidasSpinner;
+
+
+    
 
     /**
      * Creates new form Interfaz
@@ -40,77 +76,110 @@ public class Interfaz extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        anotados3 = new javax.swing.JSpinner();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelTotalAnotados2 = new javax.swing.JLabel();
+        jLabelTotalTiros2 = new javax.swing.JLabel();
+        jLabelAnotados3 = new javax.swing.JLabel();
+        libresAnotados = new javax.swing.JSpinner();
+        jLabelAnotadosLibres = new javax.swing.JLabel();
+        jLabelTotalTirosLibres = new javax.swing.JLabel();
         totalTiros2 = new javax.swing.JSpinner();
         anotados2 = new javax.swing.JSpinner();
-        FGButton = new javax.swing.JButton();
-        eFGButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelTotalTiros3 = new javax.swing.JLabel();
         totalTiros3 = new javax.swing.JSpinner();
-        Guardar = new javax.swing.JButton();
-        LibresAnotados = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         totalTirosLibres = new javax.swing.JSpinner();
+        jLabelAnotados2 = new javax.swing.JLabel();
+        anotados3 = new javax.swing.JSpinner();
+        jPanel2 = new javax.swing.JPanel();
+        jLabelRebotesDefensivos = new javax.swing.JLabel();
+        tapones = new javax.swing.JSpinner();
+        jLabelTapones = new javax.swing.JLabel();
+        jLabelRobos = new javax.swing.JLabel();
+        robos = new javax.swing.JSpinner();
+        rebotesDefensivos = new javax.swing.JSpinner();
+        jPanel3 = new javax.swing.JPanel();
+        jLabelPerdidas = new javax.swing.JLabel();
+        jLabelAsistencias = new javax.swing.JLabel();
+        perdidas = new javax.swing.JSpinner();
+        rebotesOfensivos = new javax.swing.JSpinner();
+        asistencias = new javax.swing.JSpinner();
+        jLabelRebotesOfensivos = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        Calcular = new javax.swing.JButton();
+        jLabelNombreJugador = new javax.swing.JLabel();
         NombreJugador = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        calucularTS = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        Excel = new javax.swing.JButton();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        Equipo = new javax.swing.JMenu();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(173, 216, 230));
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        setResizable(false);
 
-        jLabel4.setBackground(new java.awt.Color(51, 0, 204));
-        jLabel4.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14)); // NOI18N
-        jLabel4.setText("Estadisticas Baloncesto");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jLabel4, gridBagConstraints);
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
 
-        jLabel6.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel6.setText("Anotados de 3");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jLabel6, gridBagConstraints);
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel7.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel7.setText("Anotados de 2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jLabel7, gridBagConstraints);
-
-        jLabel8.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel8.setText("Total tiros de 2");
+        jLabelTotalAnotados2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelTotalAnotados2.setText("Total tiros de 2");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jLabel8, gridBagConstraints);
+        jPanel1.add(jLabelTotalAnotados2, gridBagConstraints);
 
-        anotados3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
-        anotados3.setPreferredSize(new java.awt.Dimension(64, 30));
+        jLabelTotalTiros2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelTotalTiros2.setText("Total tiros de 2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel1.add(jLabelTotalTiros2, gridBagConstraints);
+
+        jLabelAnotados3.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelAnotados3.setText("Anotados de 3");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel1.add(jLabelAnotados3, gridBagConstraints);
+
+        libresAnotados.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        libresAnotados.setPreferredSize(new java.awt.Dimension(64, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(anotados3, gridBagConstraints);
+        jPanel1.add(libresAnotados, gridBagConstraints);
+
+        jLabelAnotadosLibres.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelAnotadosLibres.setText("Anotados Libres");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel1.add(jLabelAnotadosLibres, gridBagConstraints);
+
+        jLabelTotalTirosLibres.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelTotalTirosLibres.setText("Total Tiros Libres");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel1.add(jLabelTotalTirosLibres, gridBagConstraints);
 
         totalTiros2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         totalTiros2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -120,7 +189,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(totalTiros2, gridBagConstraints);
+        jPanel1.add(totalTiros2, gridBagConstraints);
 
         anotados2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         anotados2.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -129,55 +198,16 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridy = 5;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(anotados2, gridBagConstraints);
+        jPanel1.add(anotados2, gridBagConstraints);
 
-        FGButton.setText("FG");
-        FGButton.setPreferredSize(new java.awt.Dimension(72, 30));
-        FGButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FGButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(FGButton, gridBagConstraints);
-
-        eFGButton.setText("eFG");
-        eFGButton.setPreferredSize(new java.awt.Dimension(72, 30));
-        eFGButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eFGButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(eFGButton, gridBagConstraints);
-
-        jButton1.setText("Reset");
-        jButton1.setPreferredSize(new java.awt.Dimension(72, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jButton1, gridBagConstraints);
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel1.setText("Total Tiros de 3");
+        jLabelTotalTiros3.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelTotalTiros3.setText("Total Tiros de 3");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        jPanel1.add(jLabelTotalTiros3, gridBagConstraints);
 
         totalTiros3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         totalTiros3.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -187,50 +217,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(totalTiros3, gridBagConstraints);
-
-        Guardar.setText("Excel");
-        Guardar.setPreferredSize(new java.awt.Dimension(72, 30));
-        Guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardarActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(Guardar, gridBagConstraints);
-
-        LibresAnotados.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
-        LibresAnotados.setPreferredSize(new java.awt.Dimension(64, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(LibresAnotados, gridBagConstraints);
-
-        jLabel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel2.setText("Anotados Libres");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jLabel2, gridBagConstraints);
-
-        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel3.setText("Total Tiros Libres");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(jLabel3, gridBagConstraints);
+        jPanel1.add(totalTiros3, gridBagConstraints);
 
         totalTirosLibres.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         totalTirosLibres.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -240,7 +227,166 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(totalTirosLibres, gridBagConstraints);
+        jPanel1.add(totalTirosLibres, gridBagConstraints);
+
+        jLabelAnotados2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelAnotados2.setText("Anotados de 2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel1.add(jLabelAnotados2, gridBagConstraints);
+
+        anotados3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        anotados3.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel1.add(anotados3, gridBagConstraints);
+
+        jTabbedPane1.addTab("Ataque", jPanel1);
+
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jLabelRebotesDefensivos.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelRebotesDefensivos.setText("Rebotes Defensivos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(jLabelRebotesDefensivos, gridBagConstraints);
+
+        tapones.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        tapones.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(tapones, gridBagConstraints);
+
+        jLabelTapones.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelTapones.setText("Tapones");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(jLabelTapones, gridBagConstraints);
+
+        jLabelRobos.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelRobos.setText("Robos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(jLabelRobos, gridBagConstraints);
+
+        robos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        robos.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(robos, gridBagConstraints);
+
+        rebotesDefensivos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        rebotesDefensivos.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(rebotesDefensivos, gridBagConstraints);
+
+        jTabbedPane1.addTab("Defensa", jPanel2);
+
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jLabelPerdidas.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelPerdidas.setText("Perdidas de Balón");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(jLabelPerdidas, gridBagConstraints);
+
+        jLabelAsistencias.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelAsistencias.setText("Asistencias");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(jLabelAsistencias, gridBagConstraints);
+
+        perdidas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        perdidas.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(perdidas, gridBagConstraints);
+
+        rebotesOfensivos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        rebotesOfensivos.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(rebotesOfensivos, gridBagConstraints);
+
+        asistencias.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+        asistencias.setPreferredSize(new java.awt.Dimension(64, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(asistencias, gridBagConstraints);
+
+        jLabelRebotesOfensivos.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        jLabelRebotesOfensivos.setText("Rebotes Ofensivos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(jLabelRebotesOfensivos, gridBagConstraints);
+
+        jTabbedPane1.addTab("Otros", jPanel3);
+
+        jPanel4.setLayout(new java.awt.GridBagLayout());
+
+        Calcular.setText("Calcular");
+        Calcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CalcularActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel4.add(Calcular, gridBagConstraints);
+
+        jLabelNombreJugador.setText("Nombre del Jugador");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 20);
+        jPanel4.add(jLabelNombreJugador, gridBagConstraints);
 
         NombreJugador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NombreJugador.addActionListener(new java.awt.event.ActionListener() {
@@ -253,65 +399,69 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 200;
-        getContentPane().add(NombreJugador, gridBagConstraints);
+        jPanel4.add(NombreJugador, gridBagConstraints);
 
-        jLabel5.setText("Nombre del Jugador");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 20);
-        getContentPane().add(jLabel5, gridBagConstraints);
-
-        calucularTS.setText("TS");
-        calucularTS.setPreferredSize(new java.awt.Dimension(72, 30));
-        calucularTS.addActionListener(new java.awt.event.ActionListener() {
+        Excel.setText("Excel");
+        Excel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calucularTSActionPerformed(evt);
+                ExcelActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        getContentPane().add(calucularTS, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel4.add(Excel, gridBagConstraints);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jTabbedPane1.addTab("Menu", jPanel4);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        Equipo.setText("Equipo");
 
-        setJMenuBar(jMenuBar1);
+        buttonGroup1.add(jRadioButtonMenuItem1);
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("Lakers");
+        Equipo.add(jRadioButtonMenuItem1);
+
+        buttonGroup1.add(jRadioButtonMenuItem2);
+        jRadioButtonMenuItem2.setText("Miami Heat");
+        Equipo.add(jRadioButtonMenuItem2);
+
+        buttonGroup1.add(jRadioButtonMenuItem3);
+        jRadioButtonMenuItem3.setText("Seventy Sixers");
+        Equipo.add(jRadioButtonMenuItem3);
+
+        jMenuBar2.add(Equipo);
+
+        jMenu4.setText("Edit");
+        jMenuBar2.add(jMenu4);
+
+        setJMenuBar(jMenuBar2);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void FGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FGButtonActionPerformed
-        // Obtener el nombre del jugador
-        String nombreJugador = obtenerNombreJugador(); 
-        if (nombreJugador == null || nombreJugador.isEmpty()) {
-            // Si el nombre es inválido o vacío, salir del método
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingresa el nombre del jugador", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Calcular FG
-        double fg = calcularFG();
-        if (fg == -1) return; // Si la validación de FG falla, salir del método
-
-        // Mostrar el nombre del jugador junto con el FG
-        String resultadoFG = "FG: " + String.format("%.2f", fg) + "%";
-        Resultado resultadoFrame = new Resultado(resultadoFG,nombreJugador);
-        resultadoFrame.setVisible(true);
-    }//GEN-LAST:event_FGButtonActionPerformed
-    
     
     private double calcularFG() {
         // Obtener valores
         int tiros2 = (int) anotados2.getValue();
         int tiros3 = (int) anotados3.getValue();
-        int tirosTotales = Integer.parseInt(totalTiros2.getValue().toString()) + Integer.parseInt(totalTiros3.getValue().toString());
+        int tirosTotales = (int) totalTiros2.getValue() + (int) totalTiros3.getValue();
 
         // Validar tiros totales
         if (tirosTotales == 0) {
@@ -319,136 +469,137 @@ public class Interfaz extends javax.swing.JFrame {
             return -1; // Indicar error
         }
 
-        // Calcular FG
+        // Calcular FG%
         return ((double) (tiros2 + tiros3) / tirosTotales) * 100;
-    }
-    
-    private void eFGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eFGButtonActionPerformed
-        // Obtener el nombre del jugador
-        String nombreJugador = obtenerNombreJugador();
-        if (nombreJugador == null || nombreJugador.isEmpty()) {
-            // Si el nombre es inválido o vacío, salir del método
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingresa el nombre del jugador", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+}
 
-        // Calcular eFG
-        double efg = calcularEFG();
-        if (efg == -1) return; // Si la validación de eFG falla, salir del método
-
-        // Mostrar el resultado con el nombre del jugador
-        String resultadoEFG = "eFG: " + String.format("%.2f", efg) + "%";
-        Resultado resultadoFrame = new Resultado(resultadoEFG,nombreJugador);
-        resultadoFrame.setVisible(true);   
-    }//GEN-LAST:event_eFGButtonActionPerformed
-    
-    //Funcion para calcular efg
     private double calcularEFG() {
-        // Obtener valores
-        int tiros2 = (int) anotados2.getValue();
-        int tiros3 = (int) anotados3.getValue();
-        int tirosTotales = Integer.parseInt(totalTiros2.getValue().toString()) + Integer.parseInt(totalTiros3.getValue().toString());
+       // Obtener valores
+       int tiros2 = (int) anotados2.getValue();
+       int tiros3 = (int) anotados3.getValue();
+       int tirosTotales = (int) totalTiros2.getValue() + (int) totalTiros3.getValue();
 
-        // Validar tiros totales
-        if (tirosTotales == 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros no puede ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+       // Validar tiros totales
+       if (tirosTotales == 0) {
+           javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros no puede ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+           return -1; // Indicar error
+       }
+
+       // Calcular eFG%
+       return ((tiros2 + (0.5 * tiros3)) / tirosTotales) * 100;
+   }
+    
+    
+    private double calcularTS() {
+        // Obtener valores desde los JSpinners
+        int puntosTotales = (int) anotados2.getValue() * 2 + (int) anotados3.getValue() * 3 + (int) libresAnotados.getValue();
+        int intentosTirosCampo = Integer.parseInt(totalTiros2.getValue().toString()) + Integer.parseInt(totalTiros3.getValue().toString());
+        int intentosTirosLibres = Integer.parseInt(totalTirosLibres.getValue().toString());
+
+        // Validar intentos
+        if (intentosTirosCampo == 0 && intentosTirosLibres == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Los intentos totales de tiros no pueden ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return -1; // Indicar error
         }
 
-        // Calcular eFG
-        return ((tiros2 + (0.5 * tiros3)) / tirosTotales) * 100;
+        // Calcular %TS
+        return (puntosTotales / (2.0 * (intentosTirosCampo + 0.44 * intentosTirosLibres))) * 100;
     }
     
-    //Guardar en el excel
-    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-        String nombreJugador = obtenerNombreJugador();        
-        // Calcular FG y eFG
+    
+    private int calcularValoracion() {
+        // Obtener valores
+        int puntosTotales = (int) anotados2.getValue() * 2 + (int) anotados3.getValue() * 3 + (int) libresAnotados.getValue();
+        int rebotesTotales = (int) rebotesDefensivos.getValue() + (int) rebotesOfensivos.getValue();
+        int asistenciasTotales = (int) asistencias.getValue();
+        int robosTotales = (int) robos.getValue();
+        int taponesTotales = (int) tapones.getValue();
+        int perdidasTotales = (int) perdidas.getValue();
+
+        int intentosTirosCampo = Integer.parseInt(totalTiros2.getValue().toString()) + Integer.parseInt(totalTiros3.getValue().toString());
+        int anotadosTirosCampo = (int) anotados2.getValue() + (int) anotados3.getValue();
+        int intentosTirosLibres = Integer.parseInt(totalTirosLibres.getValue().toString());
+        int anotadosTirosLibres = (int) libresAnotados.getValue();
+
+        // Calcular valoración
+        return (puntosTotales + rebotesTotales + asistenciasTotales + robosTotales + taponesTotales)
+                - (perdidasTotales + (intentosTirosCampo - anotadosTirosCampo) + (intentosTirosLibres - anotadosTirosLibres));
+    }
+    
+    private void CalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalcularActionPerformed
+            // Llamamos a la función para obtener el nombre
+        String nombreJugador = obtenerNombreJugador();
+
+        // Realizamos los cálculos
         double fg = calcularFG();
         double efg = calcularEFG();
-        if (fg == -1 || efg == -1) return; // Validación fallida, salir del método
+        double ts = calcularTS();
+        int valoracion = calcularValoracion();
 
-        // Obtener valores necesarios
-        int tirosAnotados2 = (int) anotados2.getValue();
-        int totalTirosD2 = (int) totalTiros2.getValue();
-        int tirosAnotados3 = (int) anotados3.getValue();
-        int totalTirosD3 = (Integer) totalTiros2.getValue();
-
-        int tirosTotales = totalTirosD2 + totalTirosD3; // Sumar los totales de tiros
-
-        // Guardar en Excel
-        guardarEnExcel(nombreJugador, tirosAnotados2, tirosAnotados3, totalTirosD2, totalTirosD3, tirosTotales, fg, efg);                
-    }//GEN-LAST:event_GuardarActionPerformed
+        // Mostrar resultados
+        if (fg != -1 && efg != -1 && ts != -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Jugador: " + nombreJugador + "\n" + // Mostramos el nombre del jugador
+                "FG%: " + String.format("%.2f", fg) + "%\n" + 
+                "eFG%: " + String.format("%.2f", efg) + "%\n" + 
+                "TS%: " + String.format("%.2f", ts) + "%\n" + 
+                "Valoración: " + valoracion, 
+                "Resultados", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_CalcularActionPerformed
 
     private void NombreJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreJugadorActionPerformed
         // TODO add your handling code here:
-        String nombreJugador = obtenerNombreJugador(); // Usa la función de validación
-        if (nombreJugador == null) return; // Si el nombre es inválido, salir del método
+        String nombre = NombreJugador.getText().trim();
+        jLabelNombreJugador.setText(nombre); // Asigna el texto capturado al JLabel
 
-        String resultado = "Nombre del jugador: " + nombreJugador; // Formatea el mensaje
-
-        // Crea y muestra la ventana con el resultado y el nombre del jugador
-        Resultado resultadoVentana = new Resultado(resultado, nombreJugador); 
-        resultadoVentana.setVisible(true); // Muestra la nueva ventana
     }//GEN-LAST:event_NombreJugadorActionPerformed
 
-    private void calucularTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calucularTSActionPerformed
-        // TODO add your handling code here:
+    private void ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcelActionPerformed
+    try {
+        // Recoge los valores de los campos de texto u otras fuentes
         String nombreJugador = obtenerNombreJugador();
-        if (nombreJugador == null || nombreJugador.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingresa el nombre del jugador", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
-        try {
-            // Obtener valores para calcular TS%
-            int tirosAnotados2 = (int) anotados2.getValue();
-            int tirosAnotados3 = (int) anotados3.getValue();
-            int libresAnotados = Integer.parseInt(this.LibresAnotados.getValue().toString());
-            int totalTirosCampo2 = Integer.parseInt(totalTiros2.getValue().toString());
-            int totalTirosCampo3 = Integer.parseInt(totalTiros3.getValue().toString());
-            int tirosLibresIntentados = Integer.parseInt(totalTirosLibres.getValue().toString());
+        // Obtener valores de los spinners
+        int tiros3 = (int) anotados3.getValue();
+        int totalDeTiros3 = (int) totalTiros3.getValue();
+        int tiros2 = (int) anotados2.getValue();
+        int totalDeTiros2 = (int) totalTiros2.getValue();  // Asegúrate de que esta variable está inicializada correctamente
+        int tirosAnotadosLibres = (int) libresAnotados.getValue();
+        int tirosTotalLibres = (int) totalTirosLibres.getValue();
+        int rebotesDef = (int) rebotesDefensivos.getValue();
+        int Robos = (int) robos.getValue();
+        int Tapones = (int) tapones.getValue();
+        int asistenciasTotales = (int) asistencias.getValue(); // Corregido
+        int rebotesOf = (int) rebotesOfensivos.getValue();
+        int Perdidas = (int) perdidas.getValue();
 
-            // Validar que total de tiros no sea 0
-            int tirosCampoTotales = totalTirosCampo2 + totalTirosCampo3;
-            if (tirosCampoTotales == 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros de campo no puede ser 0.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        // Llamada a los métodos para calcular FG, EFG y Valoración
+        double fg = calcularFG();
+        double efg = calcularEFG();
+        double valoracion = calcularValoracion(); // Método que calcula la valoración
 
-            // Validar coherencia de tiros libres
-            if (libresAnotados > tirosLibresIntentados) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Los tiros libres anotados no pueden ser mayores que los intentados.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        // Llamada al método guardarExcel con todos los parámetros necesarios
+        guardarEnExcel(nombreJugador, tiros2, tiros3, totalDeTiros2, totalDeTiros3, tirosTotalLibres, fg, efg, valoracion);
 
-            // Constante del cálculo
-            final double FACTOR_LIBRES = 0.44;
-
-            // Calcular TS%
-            int puntosTotales = (2 * tirosAnotados2) + (3 * tirosAnotados3) + libresAnotados;
-            double ts = (puntosTotales / (2.0 * (tirosCampoTotales + FACTOR_LIBRES * tirosLibresIntentados))) * 100;
-
-            // Mostrar el resultado
-            String resultadoTS = "TS%: " + String.format("%.2f", ts) + "%";
-            Resultado resultadoFrame = new Resultado(resultadoTS, nombreJugador);
-            resultadoFrame.setVisible(true);
-
-        } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, introduce valores numéricos válidos en todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_calucularTSActionPerformed
+        JOptionPane.showMessageDialog(this, "Datos guardados en Excel con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar los datos en Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_ExcelActionPerformed
 
     private String obtenerNombreJugador() {
-        // Captura el nombre del jugador desde un campo de texto
-        String nombreJugador = NombreJugador.getText();
-        return nombreJugador;
+        return NombreJugador.getText().trim(); // Asegúrate de usar el JTextField correcto
 }
+
 
 
     private static final String FILE_PATH = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\nba_estadisticas\\Estadisticas_Baloncesto.xlsx";
 
-   
-public void guardarEnExcel(String nombreJugador, int anotados2, int anotados3, int totalTiros2, int totalTiros3, int totalTirosLibres, double fg, double efg) {
+    
+    
+    public void guardarEnExcel(String nombreJugador, int anotados2, int anotados3, int totalTiros2, int totalTiros3, int totalTirosLibres, double fg, double efg, double valoracion) {
     File excelFile = new File(FILE_PATH);
     Workbook workbook = null;
 
@@ -470,7 +621,10 @@ public void guardarEnExcel(String nombreJugador, int anotados2, int anotados3, i
 
         // Calcular puntos totales y TS%
         int puntosTotales = (2 * anotados2) + (3 * anotados3) + totalTirosLibres;
-        double ts = (puntosTotales / (2.0 * (totalTiros2 + totalTiros3 + 0.44 * totalTirosLibres))) * 100;
+        double ts = 0;
+        if (totalTiros2 + totalTiros3 + 0.44 * totalTirosLibres > 0) {
+            ts = (puntosTotales / (2.0 * (totalTiros2 + totalTiros3 + 0.44 * totalTirosLibres))) * 100;
+        }
 
         // Eliminar fila de promedios si existe
         int lastRowNum = sheet.getPhysicalNumberOfRows();
@@ -490,14 +644,16 @@ public void guardarEnExcel(String nombreJugador, int anotados2, int anotados3, i
         newRow.createCell(6).setCellValue(fg);
         newRow.createCell(7).setCellValue(efg);
         newRow.createCell(8).setCellValue(ts); // Nueva columna TS%
+        newRow.createCell(9).setCellValue(valoracion); // Nueva columna Valoración (ahora es double)
 
         // Calcular promedios
-        double totalFg = 0, totalEfg = 0, totalTs = 0;
+        double totalFg = 0, totalEfg = 0, totalTs = 0, totalValoracion = 0;
         for (int i = 1; i <= lastRowNum; i++) {
             Row row = sheet.getRow(i);
             totalFg += row.getCell(6).getNumericCellValue();
             totalEfg += row.getCell(7).getNumericCellValue();
             totalTs += row.getCell(8).getNumericCellValue();
+            totalValoracion += row.getCell(9).getNumericCellValue();
         }
 
         int numeroDeJugadores = lastRowNum;
@@ -506,6 +662,7 @@ public void guardarEnExcel(String nombreJugador, int anotados2, int anotados3, i
         promedioRow.createCell(6).setCellValue(totalFg / numeroDeJugadores);
         promedioRow.createCell(7).setCellValue(totalEfg / numeroDeJugadores);
         promedioRow.createCell(8).setCellValue(totalTs / numeroDeJugadores);
+        promedioRow.createCell(9).setCellValue(totalValoracion / numeroDeJugadores);
 
         // Guardar el archivo Excel
         try (FileOutputStream fileOut = new FileOutputStream(excelFile)) {
@@ -536,8 +693,12 @@ private void crearEncabezados(Sheet sheet) {
     headerRow.createCell(5).setCellValue("Total Tiros");
     headerRow.createCell(6).setCellValue("FG (%)");
     headerRow.createCell(7).setCellValue("eFG (%)");
-    headerRow.createCell(8).setCellValue("TS (%)"); // Encabezado para TS%
+    headerRow.createCell(8).setCellValue("TS (%)");
+    headerRow.createCell(9).setCellValue("Valoración");
 }
+
+
+
 
 private void eliminarFilaPromedios(Sheet sheet) {
     int lastRowNum = sheet.getPhysicalNumberOfRows() - 1;
@@ -612,26 +773,44 @@ private void recalcularPromedios(Sheet sheet) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton FGButton;
-    private javax.swing.JButton Guardar;
-    private javax.swing.JSpinner LibresAnotados;
+    private javax.swing.JButton Calcular;
+    private javax.swing.JMenu Equipo;
+    private javax.swing.JButton Excel;
     private javax.swing.JTextField NombreJugador;
     private javax.swing.JSpinner anotados2;
     private javax.swing.JSpinner anotados3;
-    private javax.swing.JButton calucularTS;
-    private javax.swing.JButton eFGButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JSpinner asistencias;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabelAnotados2;
+    private javax.swing.JLabel jLabelAnotados3;
+    private javax.swing.JLabel jLabelAnotadosLibres;
+    private javax.swing.JLabel jLabelAsistencias;
+    private javax.swing.JLabel jLabelNombreJugador;
+    private javax.swing.JLabel jLabelPerdidas;
+    private javax.swing.JLabel jLabelRebotesDefensivos;
+    private javax.swing.JLabel jLabelRebotesOfensivos;
+    private javax.swing.JLabel jLabelRobos;
+    private javax.swing.JLabel jLabelTapones;
+    private javax.swing.JLabel jLabelTotalAnotados2;
+    private javax.swing.JLabel jLabelTotalTiros2;
+    private javax.swing.JLabel jLabelTotalTiros3;
+    private javax.swing.JLabel jLabelTotalTirosLibres;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JSpinner libresAnotados;
+    private javax.swing.JSpinner perdidas;
+    private javax.swing.JSpinner rebotesDefensivos;
+    private javax.swing.JSpinner rebotesOfensivos;
+    private javax.swing.JSpinner robos;
+    private javax.swing.JSpinner tapones;
     private javax.swing.JSpinner totalTiros2;
     private javax.swing.JSpinner totalTiros3;
     private javax.swing.JSpinner totalTirosLibres;
