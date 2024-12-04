@@ -14,12 +14,10 @@ import javax.swing.JSpinner;
 
 import java.io.*;
 import java.util.*;
+import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 
-
-/**
- *
- * @author alvag
- */
+ 
 public class Interfaz extends javax.swing.JFrame {
     // Variables para mantener el acumulado de FG, eFG y el número de jugadores
     private static double totalFg = 0;
@@ -27,19 +25,7 @@ public class Interfaz extends javax.swing.JFrame {
     private static int numeroDeJugadores = 0;
     
     
-    private javax.swing.JTextField nombreTextField;
-    private javax.swing.JTextField anotados3TextField;
-    private javax.swing.JTextField totalTiros3TextField;
-    private javax.swing.JTextField anotados2TextField;
-    private javax.swing.JTextField totalTiros2TextField;
-    private javax.swing.JTextField anotadosLibresTextField;
-    private javax.swing.JTextField totalLibresTextField;
-    private javax.swing.JTextField rebotesDefTextField;
-    private javax.swing.JTextField robosTextField;
-    private javax.swing.JTextField taponesTextField;
-    private javax.swing.JTextField asistenciasTextField;
-    private javax.swing.JTextField rebotesOfTextField;
-    private javax.swing.JTextField perdidasTextField;
+   
     
     
     
@@ -64,6 +50,8 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        setSize(800, 600);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -111,12 +99,46 @@ public class Interfaz extends javax.swing.JFrame {
         jLabelNombreJugador = new javax.swing.JLabel();
         NombreJugador = new javax.swing.JTextField();
         Excel = new javax.swing.JButton();
+        Partido = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         Equipo = new javax.swing.JMenu();
-        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
-        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        Atlantico = new javax.swing.JMenu();
+        BostonCeltics = new javax.swing.JRadioButtonMenuItem();
+        BrooklynNets = new javax.swing.JRadioButtonMenuItem();
+        NYKnicks = new javax.swing.JRadioButtonMenuItem();
+        Philadelphia76ers = new javax.swing.JRadioButtonMenuItem();
+        TorontoRaptors = new javax.swing.JRadioButtonMenuItem();
+        Pacifico = new javax.swing.JMenu();
+        GoldenStateWarriors = new javax.swing.JRadioButtonMenuItem();
+        LAClippers = new javax.swing.JRadioButtonMenuItem();
+        LALakers = new javax.swing.JRadioButtonMenuItem();
+        PhoenixSuns = new javax.swing.JRadioButtonMenuItem();
+        SacramentoKings = new javax.swing.JRadioButtonMenuItem();
+        Central = new javax.swing.JMenu();
+        ChicagoBulls = new javax.swing.JRadioButtonMenuItem();
+        ClevelandCavaliers = new javax.swing.JRadioButtonMenuItem();
+        DetroitPistons = new javax.swing.JRadioButtonMenuItem();
+        IndianaPacers = new javax.swing.JRadioButtonMenuItem();
+        MilwakeeBucks = new javax.swing.JRadioButtonMenuItem();
+        Sureste = new javax.swing.JMenu();
+        AtlantaHawks = new javax.swing.JRadioButtonMenuItem();
+        CharlotteHornets = new javax.swing.JRadioButtonMenuItem();
+        MiamiHeats = new javax.swing.JRadioButtonMenuItem();
+        OrlandoMagic = new javax.swing.JRadioButtonMenuItem();
+        WhasigntonWizards = new javax.swing.JRadioButtonMenuItem();
+        Suroeste = new javax.swing.JMenu();
+        DallasMavericks = new javax.swing.JRadioButtonMenuItem();
+        HustonRockets = new javax.swing.JRadioButtonMenuItem();
+        MemphisGriezzlies = new javax.swing.JRadioButtonMenuItem();
+        NewOrleandsPelicans = new javax.swing.JRadioButtonMenuItem();
+        SanAntonioSpurs = new javax.swing.JRadioButtonMenuItem();
+        Noroeste = new javax.swing.JMenu();
+        DenverNuggets = new javax.swing.JRadioButtonMenuItem();
+        MinnesotaTimberwolves = new javax.swing.JRadioButtonMenuItem();
+        OklahomaCityThunder = new javax.swing.JRadioButtonMenuItem();
+        PortlanTrailBlazers = new javax.swing.JRadioButtonMenuItem();
+        UtahJazz = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(173, 216, 230));
@@ -414,27 +436,170 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel4.add(Excel, gridBagConstraints);
 
+        Partido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Partido.setToolTipText("Ingrese el Partido...");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel4.add(Partido, gridBagConstraints);
+
+        jLabel1.setText("Partido");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel4.add(jLabel1, gridBagConstraints);
+
         jTabbedPane1.addTab("Menu", jPanel4);
 
         Equipo.setText("Equipo");
 
-        buttonGroup1.add(jRadioButtonMenuItem1);
-        jRadioButtonMenuItem1.setSelected(true);
-        jRadioButtonMenuItem1.setText("Lakers");
-        Equipo.add(jRadioButtonMenuItem1);
+        Atlantico.setText("Atlantico");
 
-        buttonGroup1.add(jRadioButtonMenuItem2);
-        jRadioButtonMenuItem2.setText("Miami Heat");
-        Equipo.add(jRadioButtonMenuItem2);
+        buttonGroup1.add(BostonCeltics);
+        BostonCeltics.setText("Boston Celtics");
+        Atlantico.add(BostonCeltics);
 
-        buttonGroup1.add(jRadioButtonMenuItem3);
-        jRadioButtonMenuItem3.setText("Seventy Sixers");
-        Equipo.add(jRadioButtonMenuItem3);
+        buttonGroup1.add(BrooklynNets);
+        BrooklynNets.setText("Brooklyn Nets");
+        Atlantico.add(BrooklynNets);
+
+        buttonGroup1.add(NYKnicks);
+        NYKnicks.setText("NY Knicks");
+        Atlantico.add(NYKnicks);
+
+        buttonGroup1.add(Philadelphia76ers);
+        Philadelphia76ers.setText("Philadelphia 76ers");
+        Atlantico.add(Philadelphia76ers);
+
+        buttonGroup1.add(TorontoRaptors);
+        TorontoRaptors.setText("TorontoRaptors");
+        Atlantico.add(TorontoRaptors);
+
+        Equipo.add(Atlantico);
+
+        Pacifico.setText("Pacifico");
+
+        buttonGroup1.add(GoldenStateWarriors);
+        GoldenStateWarriors.setText("Golden State Warriors");
+        Pacifico.add(GoldenStateWarriors);
+
+        buttonGroup1.add(LAClippers);
+        LAClippers.setText("LA Clippers");
+        Pacifico.add(LAClippers);
+
+        buttonGroup1.add(LALakers);
+        LALakers.setText("Los Angeles Lakers");
+        Pacifico.add(LALakers);
+
+        buttonGroup1.add(PhoenixSuns);
+        PhoenixSuns.setText("Phoenix Suns");
+        Pacifico.add(PhoenixSuns);
+
+        buttonGroup1.add(SacramentoKings);
+        SacramentoKings.setText("Sacramento Kings");
+        Pacifico.add(SacramentoKings);
+
+        Equipo.add(Pacifico);
+
+        Central.setText("Central");
+
+        buttonGroup1.add(ChicagoBulls);
+        ChicagoBulls.setText("Chicago Bulls");
+        Central.add(ChicagoBulls);
+
+        buttonGroup1.add(ClevelandCavaliers);
+        ClevelandCavaliers.setText("Cleveland Cavaliers");
+        Central.add(ClevelandCavaliers);
+
+        buttonGroup1.add(DetroitPistons);
+        DetroitPistons.setText("Detroit Pistons");
+        Central.add(DetroitPistons);
+
+        buttonGroup1.add(IndianaPacers);
+        IndianaPacers.setText("Indiana Pacers");
+        Central.add(IndianaPacers);
+
+        buttonGroup1.add(MilwakeeBucks);
+        MilwakeeBucks.setText("Milwakee Bucks");
+        Central.add(MilwakeeBucks);
+
+        Equipo.add(Central);
+
+        Sureste.setText("Sureste");
+
+        buttonGroup1.add(AtlantaHawks);
+        AtlantaHawks.setText("Atlanta Hawks");
+        Sureste.add(AtlantaHawks);
+
+        buttonGroup1.add(CharlotteHornets);
+        CharlotteHornets.setText("Charlotte Hornets");
+        Sureste.add(CharlotteHornets);
+
+        buttonGroup1.add(MiamiHeats);
+        MiamiHeats.setText("Miami Heats");
+        Sureste.add(MiamiHeats);
+
+        buttonGroup1.add(OrlandoMagic);
+        OrlandoMagic.setText("OrlandoMagic");
+        Sureste.add(OrlandoMagic);
+
+        buttonGroup1.add(WhasigntonWizards);
+        WhasigntonWizards.setText("Whasington Wizards");
+        Sureste.add(WhasigntonWizards);
+
+        Equipo.add(Sureste);
+
+        Suroeste.setText("Suroeste");
+
+        buttonGroup1.add(DallasMavericks);
+        DallasMavericks.setText("Dallas Mavericks");
+        Suroeste.add(DallasMavericks);
+
+        buttonGroup1.add(HustonRockets);
+        HustonRockets.setText("Huston Rockets");
+        Suroeste.add(HustonRockets);
+
+        buttonGroup1.add(MemphisGriezzlies);
+        MemphisGriezzlies.setText("Memphis Griezzles");
+        Suroeste.add(MemphisGriezzlies);
+
+        buttonGroup1.add(NewOrleandsPelicans);
+        NewOrleandsPelicans.setText("NewOrleandsPelicans");
+        Suroeste.add(NewOrleandsPelicans);
+
+        buttonGroup1.add(SanAntonioSpurs);
+        SanAntonioSpurs.setText("San Antonio Spurs");
+        Suroeste.add(SanAntonioSpurs);
+
+        Equipo.add(Suroeste);
+
+        Noroeste.setText("Noroeste");
+
+        buttonGroup1.add(DenverNuggets);
+        DenverNuggets.setText("Denver Nuggets");
+        Noroeste.add(DenverNuggets);
+
+        buttonGroup1.add(MinnesotaTimberwolves);
+        MinnesotaTimberwolves.setText("Minnesota Timberwolves");
+        Noroeste.add(MinnesotaTimberwolves);
+
+        buttonGroup1.add(OklahomaCityThunder);
+        OklahomaCityThunder.setText("Oklahoma City Thunder");
+        Noroeste.add(OklahomaCityThunder);
+
+        buttonGroup1.add(PortlanTrailBlazers);
+        PortlanTrailBlazers.setText("Portland Trail Blazers");
+        Noroeste.add(PortlanTrailBlazers);
+
+        buttonGroup1.add(UtahJazz);
+        UtahJazz.setText("Utah Jazz");
+        Noroeste.add(UtahJazz);
+
+        Equipo.add(Noroeste);
 
         jMenuBar2.add(Equipo);
-
-        jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
 
         setJMenuBar(jMenuBar2);
 
@@ -444,7 +609,7 @@ public class Interfaz extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -554,23 +719,96 @@ public class Interfaz extends javax.swing.JFrame {
         jLabelNombreJugador.setText(nombre); // Asigna el texto capturado al JLabel
 
     }//GEN-LAST:event_NombreJugadorActionPerformed
+       
+    public String obtenerPartido(){
+        return Partido.getText().trim(); 
+    }
+    public String obtenerNombreEquipo() {
+       // Recorrer los JRadioButtonMenuItem para verificar cuál está seleccionado
+       if (AtlantaHawks.isSelected()) {
+           return "Atlanta Hawks";
+       } else if (BostonCeltics.isSelected()) {
+           return "Boston Celtics";
+       } else if (BrooklynNets.isSelected()) {
+           return "Brooklyn Nets";
+       } else if (CharlotteHornets.isSelected()) {
+           return "Charlotte Hornets";
+       } else if (ChicagoBulls.isSelected()) {
+           return "Chicago Bulls";
+       } else if (ClevelandCavaliers.isSelected()) {
+           return "Cleveland Cavaliers";
+       } else if (DallasMavericks.isSelected()) {
+           return "Dallas Mavericks";
+       } else if (DenverNuggets.isSelected()) {
+           return "Denver Nuggets";
+       } else if (DetroitPistons.isSelected()) {
+           return "Detroit Pistons";
+       } else if (GoldenStateWarriors.isSelected()) {
+           return "Golden State Warriors";
+       } else if (HustonRockets.isSelected()) {
+           return "Houston Rockets";
+       } else if (IndianaPacers.isSelected()) {
+           return "Indiana Pacers";
+       } else if (LAClippers.isSelected()) {
+           return "LA Clippers";
+       } else if (LALakers.isSelected()) {
+           return "LA Lakers";
+       } else if (MemphisGriezzlies.isSelected()) {
+           return "Memphis Grizzlies";
+       } else if (MiamiHeats.isSelected()) {
+           return "Miami Heat";
+       } else if (MilwakeeBucks.isSelected()) {
+           return "Milwaukee Bucks";
+       } else if (MinnesotaTimberwolves.isSelected()) {
+           return "Minnesota Timberwolves";
+       } else if (NYKnicks.isSelected()) {
+           return "NY Knicks";
+       } else if (NewOrleandsPelicans.isSelected()) {
+           return "New Orleans Pelicans";
+       } else if (OklahomaCityThunder.isSelected()) {
+           return "Oklahoma City Thunder";
+       } else if (OrlandoMagic.isSelected()) {
+           return "Orlando Magic";
+       } else if (Philadelphia76ers.isSelected()) {
+           return "Philadelphia 76ers";
+       } else if (PhoenixSuns.isSelected()) {
+           return "Phoenix Suns";
+       } else if (PortlanTrailBlazers.isSelected()) {
+           return "Portland Trail Blazers";
+       } else if (SacramentoKings.isSelected()) {
+           return "Sacramento Kings";
+       } else if (SanAntonioSpurs.isSelected()) {
+           return "San Antonio Spurs";
+       } else if (TorontoRaptors.isSelected()) {
+           return "Toronto Raptors";
+       } else if (UtahJazz.isSelected()) {
+           return "Utah Jazz";
+       } else if (WhasigntonWizards.isSelected()) {
+           return "Washington Wizards";
+       } else {
+           return "Ningún equipo seleccionado";
+       }
+   }
 
+    
     private void ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcelActionPerformed
     try {
-        // Recoge los valores de los campos de texto u otras fuentes
+        // Recoge los valores de los campos de texto
         String nombreJugador = obtenerNombreJugador();
+        String nombreEquipo = obtenerNombreEquipo();
+        String partido = obtenerPartido();
 
         // Obtener valores de los spinners
         int tiros3 = (int) anotados3.getValue();
         int totalDeTiros3 = (int) totalTiros3.getValue();
         int tiros2 = (int) anotados2.getValue();
-        int totalDeTiros2 = (int) totalTiros2.getValue();  // Asegúrate de que esta variable está inicializada correctamente
+        int totalDeTiros2 = (int) totalTiros2.getValue();  
         int tirosAnotadosLibres = (int) libresAnotados.getValue();
         int tirosTotalLibres = (int) totalTirosLibres.getValue();
         int rebotesDef = (int) rebotesDefensivos.getValue();
         int Robos = (int) robos.getValue();
         int Tapones = (int) tapones.getValue();
-        int asistenciasTotales = (int) asistencias.getValue(); // Corregido
+        int asistenciasTotales = (int) asistencias.getValue();
         int rebotesOf = (int) rebotesOfensivos.getValue();
         int Perdidas = (int) perdidas.getValue();
 
@@ -580,7 +818,7 @@ public class Interfaz extends javax.swing.JFrame {
         double valoracion = calcularValoracion(); // Método que calcula la valoración
 
         // Llamada al método guardarExcel con todos los parámetros necesarios
-        guardarEnExcel(nombreJugador, tiros2, tiros3, totalDeTiros2, totalDeTiros3, tirosTotalLibres, fg, efg, valoracion);
+        guardarEnExcel(partido, nombreEquipo,nombreJugador, tiros2, tiros3, totalDeTiros2, totalDeTiros3, tirosTotalLibres, fg, efg, valoracion);
 
         JOptionPane.showMessageDialog(this, "Datos guardados en Excel con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     } catch (Exception e) {
@@ -591,149 +829,152 @@ public class Interfaz extends javax.swing.JFrame {
 
     private String obtenerNombreJugador() {
         return NombreJugador.getText().trim(); // Asegúrate de usar el JTextField correcto
-}
+    }
 
 
 
-    private static final String FILE_PATH = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\nba_estadisticas\\Estadisticas_Baloncesto.xlsx";
+    private static final String FILE_PATH = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\nba_estadisticas";
 
     
     
-    public void guardarEnExcel(String nombreJugador, int anotados2, int anotados3, int totalTiros2, int totalTiros3, int totalTirosLibres, double fg, double efg, double valoracion) {
-    File excelFile = new File(FILE_PATH);
-    Workbook workbook = null;
+    public void guardarEnExcel(String partido, String nombreEquipo, String nombreJugador, int anotados2, int anotados3, int totalTiros2, int totalTiros3, int totalTirosLibres, double fg, double efg, double valoracion) {
+    
+    
+        String nombreArchivo = FILE_PATH + "_" + nombreEquipo + ".xlsx";
+        File excelFile = new File(nombreArchivo);
+        Workbook workbook = null;
 
-    try {
-        // Abrir o crear el archivo Excel
-        if (!excelFile.exists()) {
-            workbook = new XSSFWorkbook();
-        } else {
-            FileInputStream fileInputStream = new FileInputStream(excelFile);
-            workbook = new XSSFWorkbook(fileInputStream);
-        }
-
-        // Obtener o crear la hoja
-        Sheet sheet = workbook.getSheet("Estadísticas Baloncesto");
-        if (sheet == null) {
-            sheet = workbook.createSheet("Estadísticas Baloncesto");
-            crearEncabezados(sheet);
-        }
-
-        // Calcular puntos totales y TS%
-        int puntosTotales = (2 * anotados2) + (3 * anotados3) + totalTirosLibres;
-        double ts = 0;
-        if (totalTiros2 + totalTiros3 + 0.44 * totalTirosLibres > 0) {
-            ts = (puntosTotales / (2.0 * (totalTiros2 + totalTiros3 + 0.44 * totalTirosLibres))) * 100;
-        }
-
-        // Eliminar fila de promedios si existe
-        int lastRowNum = sheet.getPhysicalNumberOfRows();
-        if (lastRowNum > 1 && "Promedios".equals(sheet.getRow(lastRowNum - 1).getCell(0).getStringCellValue())) {
-            sheet.removeRow(sheet.getRow(lastRowNum - 1));
-            lastRowNum--;
-        }
-
-        // Crear nueva fila con datos del jugador
-        Row newRow = sheet.createRow(lastRowNum);
-        newRow.createCell(0).setCellValue(nombreJugador);
-        newRow.createCell(1).setCellValue(anotados2);
-        newRow.createCell(2).setCellValue(anotados3);
-        newRow.createCell(3).setCellValue(totalTiros2);
-        newRow.createCell(4).setCellValue(totalTiros3);
-        newRow.createCell(5).setCellValue(totalTiros2 + totalTiros3);
-        newRow.createCell(6).setCellValue(fg);
-        newRow.createCell(7).setCellValue(efg);
-        newRow.createCell(8).setCellValue(ts); // Nueva columna TS%
-        newRow.createCell(9).setCellValue(valoracion); // Nueva columna Valoración (ahora es double)
-
-        // Calcular promedios
-        double totalFg = 0, totalEfg = 0, totalTs = 0, totalValoracion = 0;
-        for (int i = 1; i <= lastRowNum; i++) {
-            Row row = sheet.getRow(i);
-            totalFg += row.getCell(6).getNumericCellValue();
-            totalEfg += row.getCell(7).getNumericCellValue();
-            totalTs += row.getCell(8).getNumericCellValue();
-            totalValoracion += row.getCell(9).getNumericCellValue();
-        }
-
-        int numeroDeJugadores = lastRowNum;
-        Row promedioRow = sheet.createRow(lastRowNum + 1);
-        promedioRow.createCell(0).setCellValue("Promedios");
-        promedioRow.createCell(6).setCellValue(totalFg / numeroDeJugadores);
-        promedioRow.createCell(7).setCellValue(totalEfg / numeroDeJugadores);
-        promedioRow.createCell(8).setCellValue(totalTs / numeroDeJugadores);
-        promedioRow.createCell(9).setCellValue(totalValoracion / numeroDeJugadores);
-
-        // Guardar el archivo Excel
-        try (FileOutputStream fileOut = new FileOutputStream(excelFile)) {
-            workbook.write(fileOut);
-            System.out.println("Archivo Excel guardado correctamente.");
-        }
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
         try {
-            if (workbook != null) {
-                workbook.close();
+            // Abrir o crear el archivo Excel
+            if (!excelFile.exists()) {
+                workbook = new XSSFWorkbook();
+            } else {
+                FileInputStream fileInputStream = new FileInputStream(excelFile);
+                workbook = new XSSFWorkbook(fileInputStream);
             }
+
+            // Obtener o crear la hoja
+            Sheet sheet = workbook.getSheet(nombreJugador);
+            if (sheet == null) {
+                sheet = workbook.createSheet(nombreJugador);
+                crearEncabezados(sheet);
+            }
+
+            // Calcular puntos totales y TS%
+            int puntosTotales = (2 * anotados2) + (3 * anotados3) + totalTirosLibres;
+            double ts = 0;
+            if (totalTiros2 + totalTiros3 + 0.44 * totalTirosLibres > 0) {
+                ts = (puntosTotales / (2.0 * (totalTiros2 + totalTiros3 + 0.44 * totalTirosLibres))) * 100;
+            }
+
+            // Eliminar fila de promedios si existe
+            int lastRowNum = sheet.getPhysicalNumberOfRows();
+            if (lastRowNum > 1 && "Promedios".equals(sheet.getRow(lastRowNum - 1).getCell(0).getStringCellValue())) {
+                sheet.removeRow(sheet.getRow(lastRowNum - 1));
+                lastRowNum--;
+            }
+
+            // Crear nueva fila con datos del jugador
+            Row newRow = sheet.createRow(lastRowNum);
+            newRow.createCell(0).setCellValue(partido);
+            newRow.createCell(1).setCellValue(anotados2);
+            newRow.createCell(2).setCellValue(anotados3);
+            newRow.createCell(3).setCellValue(totalTiros2);
+            newRow.createCell(4).setCellValue(totalTiros3);
+            newRow.createCell(5).setCellValue(totalTiros2 + totalTiros3);
+            newRow.createCell(6).setCellValue(fg);
+            newRow.createCell(7).setCellValue(efg);
+            newRow.createCell(8).setCellValue(ts); // Nueva columna TS%
+            newRow.createCell(9).setCellValue(valoracion); // Nueva columna Valoración (ahora es double)
+
+            // Calcular promedios
+            double totalFg = 0, totalEfg = 0, totalTs = 0, totalValoracion = 0;
+            for (int i = 1; i <= lastRowNum; i++) {
+                Row row = sheet.getRow(i);
+                totalFg += row.getCell(6).getNumericCellValue();
+                totalEfg += row.getCell(7).getNumericCellValue();
+                totalTs += row.getCell(8).getNumericCellValue();
+                totalValoracion += row.getCell(9).getNumericCellValue();
+            }
+
+            int numeroDeJugadores = lastRowNum;
+            Row promedioRow = sheet.createRow(lastRowNum + 1);
+            promedioRow.createCell(0).setCellValue("Promedios");
+            promedioRow.createCell(6).setCellValue(totalFg / numeroDeJugadores);
+            promedioRow.createCell(7).setCellValue(totalEfg / numeroDeJugadores);
+            promedioRow.createCell(8).setCellValue(totalTs / numeroDeJugadores);
+            promedioRow.createCell(9).setCellValue(totalValoracion / numeroDeJugadores);
+
+            // Guardar el archivo Excel
+            try (FileOutputStream fileOut = new FileOutputStream(excelFile)) {
+                workbook.write(fileOut);
+                System.out.println("Archivo Excel guardado correctamente.");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-}
-
-private void crearEncabezados(Sheet sheet) {
-    Row headerRow = sheet.createRow(0);
-    headerRow.createCell(0).setCellValue("Nombre");
-    headerRow.createCell(1).setCellValue("Anotados 2");
-    headerRow.createCell(2).setCellValue("Anotados 3");
-    headerRow.createCell(3).setCellValue("Tiros de 2");
-    headerRow.createCell(4).setCellValue("Tiros de 3");
-    headerRow.createCell(5).setCellValue("Total Tiros");
-    headerRow.createCell(6).setCellValue("FG (%)");
-    headerRow.createCell(7).setCellValue("eFG (%)");
-    headerRow.createCell(8).setCellValue("TS (%)");
-    headerRow.createCell(9).setCellValue("Valoración");
-}
-
-
-
-
-private void eliminarFilaPromedios(Sheet sheet) {
-    int lastRowNum = sheet.getPhysicalNumberOfRows() - 1;
-    Row lastRow = sheet.getRow(lastRowNum);
-
-    if (lastRow != null && "Promedios".equalsIgnoreCase(lastRow.getCell(0).getStringCellValue())) {
-        sheet.removeRow(lastRow);
-    }
-}
-
-private void recalcularPromedios(Sheet sheet) {
-    double totalFg = 0.0;
-    double totalEfg = 0.0;
-    int numeroDeJugadores = 0;
-
-    for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) { // Ignorar encabezados
-        Row row = sheet.getRow(i);
-        if (row != null && row.getCell(6) != null && row.getCell(7) != null) {
-            totalFg += row.getCell(6).getNumericCellValue();
-            totalEfg += row.getCell(7).getNumericCellValue();
-            numeroDeJugadores++;
+        } finally {
+            try {
+                if (workbook != null) {
+                    workbook.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    if (numeroDeJugadores > 0) {
-        double promedioFg = totalFg / numeroDeJugadores;
-        double promedioEfg = totalEfg / numeroDeJugadores;
-
-        int promedioRowNum = sheet.getPhysicalNumberOfRows(); // Después de la última fila de datos
-        Row promedioRow = sheet.createRow(promedioRowNum);
-        promedioRow.createCell(0).setCellValue("Promedios");
-        promedioRow.createCell(6).setCellValue(promedioFg);
-        promedioRow.createCell(7).setCellValue(promedioEfg);
+    private void crearEncabezados(Sheet sheet) {
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("Partido");
+        headerRow.createCell(1).setCellValue("Anotados 2");
+        headerRow.createCell(2).setCellValue("Anotados 3");
+        headerRow.createCell(3).setCellValue("Tiros de 2");
+        headerRow.createCell(4).setCellValue("Tiros de 3");
+        headerRow.createCell(5).setCellValue("Total Tiros");
+        headerRow.createCell(6).setCellValue("FG (%)");
+        headerRow.createCell(7).setCellValue("eFG (%)");
+        headerRow.createCell(8).setCellValue("TS (%)");
+        headerRow.createCell(9).setCellValue("Valoración");
     }
-}
+
+
+
+
+    private void eliminarFilaPromedios(Sheet sheet) {
+        int lastRowNum = sheet.getPhysicalNumberOfRows() - 1;
+        Row lastRow = sheet.getRow(lastRowNum);
+
+        if (lastRow != null && "Promedios".equalsIgnoreCase(lastRow.getCell(0).getStringCellValue())) {
+            sheet.removeRow(lastRow);
+        }
+    }
+
+    private void recalcularPromedios(Sheet sheet) {
+        double totalFg = 0.0;
+        double totalEfg = 0.0;
+        int numeroDeJugadores = 0;
+
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) { // Ignorar encabezados
+            Row row = sheet.getRow(i);
+            if (row != null && row.getCell(6) != null && row.getCell(7) != null) {
+                totalFg += row.getCell(6).getNumericCellValue();
+                totalEfg += row.getCell(7).getNumericCellValue();
+                numeroDeJugadores++;
+            }
+        }
+
+        if (numeroDeJugadores > 0) {
+            double promedioFg = totalFg / numeroDeJugadores;
+            double promedioEfg = totalEfg / numeroDeJugadores;
+
+            int promedioRowNum = sheet.getPhysicalNumberOfRows(); // Después de la última fila de datos
+            Row promedioRow = sheet.createRow(promedioRowNum);
+            promedioRow.createCell(0).setCellValue("Promedios");
+            promedioRow.createCell(6).setCellValue(promedioFg);
+            promedioRow.createCell(7).setCellValue(promedioEfg);
+        }
+    }
 
 
 
@@ -771,16 +1012,57 @@ private void recalcularPromedios(Sheet sheet) {
             }
         });
     }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButtonMenuItem AtlantaHawks;
+    private javax.swing.JMenu Atlantico;
+    private javax.swing.JRadioButtonMenuItem BostonCeltics;
+    private javax.swing.JRadioButtonMenuItem BrooklynNets;
     private javax.swing.JButton Calcular;
+    private javax.swing.JMenu Central;
+    private javax.swing.JRadioButtonMenuItem CharlotteHornets;
+    private javax.swing.JRadioButtonMenuItem ChicagoBulls;
+    private javax.swing.JRadioButtonMenuItem ClevelandCavaliers;
+    private javax.swing.JRadioButtonMenuItem DallasMavericks;
+    private javax.swing.JRadioButtonMenuItem DenverNuggets;
+    private javax.swing.JRadioButtonMenuItem DetroitPistons;
     private javax.swing.JMenu Equipo;
     private javax.swing.JButton Excel;
+    private javax.swing.JRadioButtonMenuItem GoldenStateWarriors;
+    private javax.swing.JRadioButtonMenuItem HustonRockets;
+    private javax.swing.JRadioButtonMenuItem IndianaPacers;
+    private javax.swing.JRadioButtonMenuItem LAClippers;
+    private javax.swing.JRadioButtonMenuItem LALakers;
+    private javax.swing.JRadioButtonMenuItem MemphisGriezzlies;
+    private javax.swing.JRadioButtonMenuItem MiamiHeats;
+    private javax.swing.JRadioButtonMenuItem MilwakeeBucks;
+    private javax.swing.JRadioButtonMenuItem MinnesotaTimberwolves;
+    private javax.swing.JRadioButtonMenuItem NYKnicks;
+    private javax.swing.JRadioButtonMenuItem NewOrleandsPelicans;
     private javax.swing.JTextField NombreJugador;
+    private javax.swing.JMenu Noroeste;
+    private javax.swing.JRadioButtonMenuItem OklahomaCityThunder;
+    private javax.swing.JRadioButtonMenuItem OrlandoMagic;
+    private javax.swing.JMenu Pacifico;
+    private javax.swing.JTextField Partido;
+    private javax.swing.JRadioButtonMenuItem Philadelphia76ers;
+    private javax.swing.JRadioButtonMenuItem PhoenixSuns;
+    private javax.swing.JRadioButtonMenuItem PortlanTrailBlazers;
+    private javax.swing.JRadioButtonMenuItem SacramentoKings;
+    private javax.swing.JRadioButtonMenuItem SanAntonioSpurs;
+    private javax.swing.JMenu Sureste;
+    private javax.swing.JMenu Suroeste;
+    private javax.swing.JRadioButtonMenuItem TorontoRaptors;
+    private javax.swing.JRadioButtonMenuItem UtahJazz;
+    private javax.swing.JRadioButtonMenuItem WhasigntonWizards;
     private javax.swing.JSpinner anotados2;
     private javax.swing.JSpinner anotados3;
     private javax.swing.JSpinner asistencias;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAnotados2;
     private javax.swing.JLabel jLabelAnotados3;
     private javax.swing.JLabel jLabelAnotadosLibres;
@@ -795,15 +1077,11 @@ private void recalcularPromedios(Sheet sheet) {
     private javax.swing.JLabel jLabelTotalTiros2;
     private javax.swing.JLabel jLabelTotalTiros3;
     private javax.swing.JLabel jLabelTotalTirosLibres;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JSpinner libresAnotados;
     private javax.swing.JSpinner perdidas;
