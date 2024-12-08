@@ -5,17 +5,46 @@
 package com.mycompany.nba_estadisticas;
 
 
+
+
+
+
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+
 
 
 import java.io.*;
 import java.util.*;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
+
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.DatasetRenderingOrder;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
  
 public class Interfaz extends javax.swing.JFrame {
@@ -65,9 +94,9 @@ public class Interfaz extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabelTotalAnotados2 = new javax.swing.JLabel();
         jLabelTotalTiros2 = new javax.swing.JLabel();
         jLabelAnotados3 = new javax.swing.JLabel();
         libresAnotados = new javax.swing.JSpinner();
@@ -101,6 +130,7 @@ public class Interfaz extends javax.swing.JFrame {
         Excel = new javax.swing.JButton();
         Partido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        graficoBarras = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         Equipo = new javax.swing.JMenu();
         Atlantico = new javax.swing.JMenu();
@@ -146,16 +176,9 @@ public class Interfaz extends javax.swing.JFrame {
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(100, 372));
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 420));
         jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        jLabelTotalAnotados2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelTotalAnotados2.setText("Total tiros de 2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        jPanel1.add(jLabelTotalAnotados2, gridBagConstraints);
 
         jLabelTotalTiros2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
         jLabelTotalTiros2.setText("Total tiros de 2");
@@ -163,7 +186,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
         jPanel1.add(jLabelTotalTiros2, gridBagConstraints);
 
         jLabelAnotados3.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
@@ -172,7 +195,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
         jPanel1.add(jLabelAnotados3, gridBagConstraints);
 
         libresAnotados.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
@@ -191,7 +214,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
         jPanel1.add(jLabelAnotadosLibres, gridBagConstraints);
 
         jLabelTotalTirosLibres.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
@@ -200,7 +223,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
         jPanel1.add(jLabelTotalTirosLibres, gridBagConstraints);
 
         totalTiros2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
@@ -228,7 +251,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
         jPanel1.add(jLabelTotalTiros3, gridBagConstraints);
 
         totalTiros3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
@@ -257,7 +280,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
         jPanel1.add(jLabelAnotados2, gridBagConstraints);
 
         anotados3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
@@ -390,6 +413,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
+        Calcular.setBackground(new java.awt.Color(204, 204, 204));
         Calcular.setText("Calcular");
         Calcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,6 +425,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
         jPanel4.add(Calcular, gridBagConstraints);
 
         jLabelNombreJugador.setText("Nombre del Jugador");
@@ -410,6 +435,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 20);
         jPanel4.add(jLabelNombreJugador, gridBagConstraints);
 
+        NombreJugador.setBackground(new java.awt.Color(255, 255, 255));
         NombreJugador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NombreJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -423,6 +449,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 200;
         jPanel4.add(NombreJugador, gridBagConstraints);
 
+        Excel.setBackground(new java.awt.Color(204, 204, 204));
         Excel.setText("Excel");
         Excel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,8 +461,10 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel4.add(Excel, gridBagConstraints);
 
+        Partido.setBackground(new java.awt.Color(255, 255, 255));
         Partido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Partido.setToolTipText("Ingrese el Partido...");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -445,11 +474,29 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel4.add(Partido, gridBagConstraints);
 
+        jLabel1.setBackground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Partido");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 20);
         jPanel4.add(jLabel1, gridBagConstraints);
+
+        graficoBarras.setBackground(new java.awt.Color(204, 204, 204));
+        graficoBarras.setText("Grafico de Barras");
+        graficoBarras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graficoBarrasActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        jPanel4.add(graficoBarras, gridBagConstraints);
 
         jTabbedPane1.addTab("Menu", jPanel4);
 
@@ -614,8 +661,8 @@ public class Interfaz extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -692,7 +739,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
     
     private void CalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalcularActionPerformed
-            // Llamamos a la función para obtener el nombre
+        // Llamamos a la función para obtener el nombre
         String nombreJugador = obtenerNombreJugador();
 
         // Realizamos los cálculos
@@ -701,15 +748,22 @@ public class Interfaz extends javax.swing.JFrame {
         double ts = calcularTS();
         int valoracion = calcularValoracion();
 
-        // Mostrar resultados
+        // Verificar si los cálculos son válidos
         if (fg != -1 && efg != -1 && ts != -1) {
+            // Crear una instancia de la ventana Resultado
+            Resultado resultadoVentana = new Resultado();
+
+            // Pasar los valores calculados a la ventana de resultados
+            resultadoVentana.setResultados(nombreJugador, fg, efg, ts, valoracion);
+
+            // Hacer la ventana de resultados visible
+            resultadoVentana.setVisible(true);
+
+        } else {
+            // Si hay error en los cálculos, mostrar mensaje de error
             javax.swing.JOptionPane.showMessageDialog(this, 
-                "Jugador: " + nombreJugador + "\n" + // Mostramos el nombre del jugador
-                "FG%: " + String.format("%.2f", fg) + "%\n" + 
-                "eFG%: " + String.format("%.2f", efg) + "%\n" + 
-                "TS%: " + String.format("%.2f", ts) + "%\n" + 
-                "Valoración: " + valoracion, 
-                "Resultados", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                "Hubo un error al realizar los cálculos.", 
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_CalcularActionPerformed
 
@@ -827,6 +881,90 @@ public class Interfaz extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_ExcelActionPerformed
 
+    private void graficoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficoBarrasActionPerformed
+        // TODO add your handling code here:
+        // Obtener el nombre del equipo y jugador desde los campos correspondientes (por ejemplo, con campos de texto)
+        String nombreEquipo = FILE_PATH + "_" + obtenerNombreEquipo();
+        String nombreJugador = NombreJugador.getText();
+
+    if (!nombreEquipo.isEmpty() && !nombreJugador.isEmpty()) {
+        // Llamar al método para generar el gráfico pasando el nombre del equipo y del jugador
+        generarGraficoDesdeExcel(nombreEquipo, nombreJugador);
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese tanto el nombre del equipo como el del jugador.", 
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+    }
+        
+    }//GEN-LAST:event_graficoBarrasActionPerformed
+
+    public void generarGraficoDesdeExcel(String nombreEquipo, String nombreJugador) {
+    try {
+        // Cargar el archivo Excel del equipo correspondiente
+        FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+
+        // Crear un Workbook a partir del archivo Excel
+        Workbook workbook = new XSSFWorkbook(file);
+
+        // Buscar la hoja que corresponde al jugador
+        Sheet sheet = workbook.getSheet(nombreJugador);
+
+        if (sheet == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear un dataset vacío para el gráfico
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Iterar sobre las filas de la hoja del jugador
+        for (Row row : sheet) {
+            // Filtrar por el nombre del jugador (aquí, no es necesario ya que ya estamos en la hoja del jugador)
+            if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
+
+                // Agregar los datos al dataset
+                dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
+            }
+        }
+
+        // Cerrar el archivo Excel
+        workbook.close();
+
+        // Crear el gráfico de barras
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Puntos de " + nombreJugador,  // Título del gráfico, dinámico según el jugador
+                "Partido",                    // Etiqueta del eje X
+                "Puntos (FG)",                // Etiqueta del eje Y
+                dataset                       // Datos
+        );
+
+        // Personalizar el gráfico
+        chart.setBackgroundPaint(Color.white);
+        chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+
+        // Crear un panel para el gráfico
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Crear una ventana nueva para mostrar el gráfico
+        JFrame graficoFrame = new JFrame("Gráfico de Puntos de " + nombreJugador);
+        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        graficoFrame.getContentPane().add(chartPanel);
+        graficoFrame.pack();
+        graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
+        graficoFrame.setVisible(true);
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
+    
+    
+    
     private String obtenerNombreJugador() {
         return NombreJugador.getText().trim(); // Asegúrate de usar el JTextField correcto
     }
@@ -1062,6 +1200,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JSpinner anotados3;
     private javax.swing.JSpinner asistencias;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton graficoBarras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAnotados2;
     private javax.swing.JLabel jLabelAnotados3;
@@ -1073,7 +1213,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRebotesOfensivos;
     private javax.swing.JLabel jLabelRobos;
     private javax.swing.JLabel jLabelTapones;
-    private javax.swing.JLabel jLabelTotalAnotados2;
     private javax.swing.JLabel jLabelTotalTiros2;
     private javax.swing.JLabel jLabelTotalTiros3;
     private javax.swing.JLabel jLabelTotalTirosLibres;
