@@ -5,9 +5,12 @@
 package com.mycompany.nba_estadisticas;
 
 
+import java.nio.file.Files;
 
-
-
+import java.io.FileInputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.jfree.chart.plot.PlotOrientation;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
@@ -95,6 +98,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabelTotalTiros2 = new javax.swing.JLabel();
@@ -126,11 +130,12 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         Calcular = new javax.swing.JButton();
         jLabelNombreJugador = new javax.swing.JLabel();
-        NombreJugador = new javax.swing.JTextField();
         Excel = new javax.swing.JButton();
         Partido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         graficoBarras = new javax.swing.JButton();
+        graficoLineas = new javax.swing.JButton();
+        NombreJugador = new javax.swing.JComboBox<>();
         jMenuBar2 = new javax.swing.JMenuBar();
         Equipo = new javax.swing.JMenu();
         Atlantico = new javax.swing.JMenu();
@@ -423,7 +428,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
         jPanel4.add(Calcular, gridBagConstraints);
@@ -435,20 +440,6 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 20, 10, 20);
         jPanel4.add(jLabelNombreJugador, gridBagConstraints);
 
-        NombreJugador.setBackground(new java.awt.Color(255, 255, 255));
-        NombreJugador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        NombreJugador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreJugadorActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 200;
-        jPanel4.add(NombreJugador, gridBagConstraints);
-
         Excel.setBackground(new java.awt.Color(204, 204, 204));
         Excel.setText("Excel");
         Excel.addActionListener(new java.awt.event.ActionListener() {
@@ -459,7 +450,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel4.add(Excel, gridBagConstraints);
@@ -467,6 +458,11 @@ public class Interfaz extends javax.swing.JFrame {
         Partido.setBackground(new java.awt.Color(255, 255, 255));
         Partido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Partido.setToolTipText("Ingrese el Partido...");
+        Partido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PartidoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -493,10 +489,37 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel4.add(graficoBarras, gridBagConstraints);
+
+        graficoLineas.setBackground(new java.awt.Color(204, 204, 204));
+        graficoLineas.setText("Grafico de Lineas");
+        graficoLineas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graficoLineasActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        jPanel4.add(graficoLineas, gridBagConstraints);
+
+        NombreJugador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        NombreJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreJugadorActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 40;
+        jPanel4.add(NombreJugador, gridBagConstraints);
 
         jTabbedPane1.addTab("Menu", jPanel4);
 
@@ -506,22 +529,47 @@ public class Interfaz extends javax.swing.JFrame {
 
         buttonGroup1.add(BostonCeltics);
         BostonCeltics.setText("Boston Celtics");
+        BostonCeltics.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BostonCelticsActionPerformed(evt);
+            }
+        });
         Atlantico.add(BostonCeltics);
 
         buttonGroup1.add(BrooklynNets);
         BrooklynNets.setText("Brooklyn Nets");
+        BrooklynNets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BrooklynNetsActionPerformed(evt);
+            }
+        });
         Atlantico.add(BrooklynNets);
 
         buttonGroup1.add(NYKnicks);
         NYKnicks.setText("NY Knicks");
+        NYKnicks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NYKnicksActionPerformed(evt);
+            }
+        });
         Atlantico.add(NYKnicks);
 
         buttonGroup1.add(Philadelphia76ers);
         Philadelphia76ers.setText("Philadelphia 76ers");
+        Philadelphia76ers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Philadelphia76ersActionPerformed(evt);
+            }
+        });
         Atlantico.add(Philadelphia76ers);
 
         buttonGroup1.add(TorontoRaptors);
         TorontoRaptors.setText("TorontoRaptors");
+        TorontoRaptors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TorontoRaptorsActionPerformed(evt);
+            }
+        });
         Atlantico.add(TorontoRaptors);
 
         Equipo.add(Atlantico);
@@ -530,22 +578,47 @@ public class Interfaz extends javax.swing.JFrame {
 
         buttonGroup1.add(GoldenStateWarriors);
         GoldenStateWarriors.setText("Golden State Warriors");
+        GoldenStateWarriors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GoldenStateWarriorsActionPerformed(evt);
+            }
+        });
         Pacifico.add(GoldenStateWarriors);
 
         buttonGroup1.add(LAClippers);
         LAClippers.setText("LA Clippers");
+        LAClippers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LAClippersActionPerformed(evt);
+            }
+        });
         Pacifico.add(LAClippers);
 
         buttonGroup1.add(LALakers);
         LALakers.setText("Los Angeles Lakers");
+        LALakers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LALakersActionPerformed(evt);
+            }
+        });
         Pacifico.add(LALakers);
 
         buttonGroup1.add(PhoenixSuns);
         PhoenixSuns.setText("Phoenix Suns");
+        PhoenixSuns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PhoenixSunsActionPerformed(evt);
+            }
+        });
         Pacifico.add(PhoenixSuns);
 
         buttonGroup1.add(SacramentoKings);
         SacramentoKings.setText("Sacramento Kings");
+        SacramentoKings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SacramentoKingsActionPerformed(evt);
+            }
+        });
         Pacifico.add(SacramentoKings);
 
         Equipo.add(Pacifico);
@@ -554,22 +627,47 @@ public class Interfaz extends javax.swing.JFrame {
 
         buttonGroup1.add(ChicagoBulls);
         ChicagoBulls.setText("Chicago Bulls");
+        ChicagoBulls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChicagoBullsActionPerformed(evt);
+            }
+        });
         Central.add(ChicagoBulls);
 
         buttonGroup1.add(ClevelandCavaliers);
         ClevelandCavaliers.setText("Cleveland Cavaliers");
+        ClevelandCavaliers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClevelandCavaliersActionPerformed(evt);
+            }
+        });
         Central.add(ClevelandCavaliers);
 
         buttonGroup1.add(DetroitPistons);
         DetroitPistons.setText("Detroit Pistons");
+        DetroitPistons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DetroitPistonsActionPerformed(evt);
+            }
+        });
         Central.add(DetroitPistons);
 
         buttonGroup1.add(IndianaPacers);
         IndianaPacers.setText("Indiana Pacers");
+        IndianaPacers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IndianaPacersActionPerformed(evt);
+            }
+        });
         Central.add(IndianaPacers);
 
         buttonGroup1.add(MilwakeeBucks);
         MilwakeeBucks.setText("Milwakee Bucks");
+        MilwakeeBucks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MilwakeeBucksActionPerformed(evt);
+            }
+        });
         Central.add(MilwakeeBucks);
 
         Equipo.add(Central);
@@ -578,22 +676,47 @@ public class Interfaz extends javax.swing.JFrame {
 
         buttonGroup1.add(AtlantaHawks);
         AtlantaHawks.setText("Atlanta Hawks");
+        AtlantaHawks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtlantaHawksActionPerformed(evt);
+            }
+        });
         Sureste.add(AtlantaHawks);
 
         buttonGroup1.add(CharlotteHornets);
         CharlotteHornets.setText("Charlotte Hornets");
+        CharlotteHornets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CharlotteHornetsActionPerformed(evt);
+            }
+        });
         Sureste.add(CharlotteHornets);
 
         buttonGroup1.add(MiamiHeats);
         MiamiHeats.setText("Miami Heats");
+        MiamiHeats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MiamiHeatsActionPerformed(evt);
+            }
+        });
         Sureste.add(MiamiHeats);
 
         buttonGroup1.add(OrlandoMagic);
         OrlandoMagic.setText("OrlandoMagic");
+        OrlandoMagic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrlandoMagicActionPerformed(evt);
+            }
+        });
         Sureste.add(OrlandoMagic);
 
         buttonGroup1.add(WhasigntonWizards);
         WhasigntonWizards.setText("Whasington Wizards");
+        WhasigntonWizards.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WhasigntonWizardsActionPerformed(evt);
+            }
+        });
         Sureste.add(WhasigntonWizards);
 
         Equipo.add(Sureste);
@@ -602,22 +725,47 @@ public class Interfaz extends javax.swing.JFrame {
 
         buttonGroup1.add(DallasMavericks);
         DallasMavericks.setText("Dallas Mavericks");
+        DallasMavericks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DallasMavericksActionPerformed(evt);
+            }
+        });
         Suroeste.add(DallasMavericks);
 
         buttonGroup1.add(HustonRockets);
         HustonRockets.setText("Huston Rockets");
+        HustonRockets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HustonRocketsActionPerformed(evt);
+            }
+        });
         Suroeste.add(HustonRockets);
 
         buttonGroup1.add(MemphisGriezzlies);
         MemphisGriezzlies.setText("Memphis Griezzles");
+        MemphisGriezzlies.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MemphisGriezzliesActionPerformed(evt);
+            }
+        });
         Suroeste.add(MemphisGriezzlies);
 
         buttonGroup1.add(NewOrleandsPelicans);
         NewOrleandsPelicans.setText("NewOrleandsPelicans");
+        NewOrleandsPelicans.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewOrleandsPelicansActionPerformed(evt);
+            }
+        });
         Suroeste.add(NewOrleandsPelicans);
 
         buttonGroup1.add(SanAntonioSpurs);
         SanAntonioSpurs.setText("San Antonio Spurs");
+        SanAntonioSpurs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SanAntonioSpursActionPerformed(evt);
+            }
+        });
         Suroeste.add(SanAntonioSpurs);
 
         Equipo.add(Suroeste);
@@ -626,22 +774,47 @@ public class Interfaz extends javax.swing.JFrame {
 
         buttonGroup1.add(DenverNuggets);
         DenverNuggets.setText("Denver Nuggets");
+        DenverNuggets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DenverNuggetsActionPerformed(evt);
+            }
+        });
         Noroeste.add(DenverNuggets);
 
         buttonGroup1.add(MinnesotaTimberwolves);
         MinnesotaTimberwolves.setText("Minnesota Timberwolves");
+        MinnesotaTimberwolves.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MinnesotaTimberwolvesActionPerformed(evt);
+            }
+        });
         Noroeste.add(MinnesotaTimberwolves);
 
         buttonGroup1.add(OklahomaCityThunder);
         OklahomaCityThunder.setText("Oklahoma City Thunder");
+        OklahomaCityThunder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OklahomaCityThunderActionPerformed(evt);
+            }
+        });
         Noroeste.add(OklahomaCityThunder);
 
         buttonGroup1.add(PortlanTrailBlazers);
         PortlanTrailBlazers.setText("Portland Trail Blazers");
+        PortlanTrailBlazers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PortlanTrailBlazersActionPerformed(evt);
+            }
+        });
         Noroeste.add(PortlanTrailBlazers);
 
         buttonGroup1.add(UtahJazz);
         UtahJazz.setText("Utah Jazz");
+        UtahJazz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UtahJazzActionPerformed(evt);
+            }
+        });
         Noroeste.add(UtahJazz);
 
         Equipo.add(Noroeste);
@@ -766,13 +939,6 @@ public class Interfaz extends javax.swing.JFrame {
                 "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_CalcularActionPerformed
-
-    private void NombreJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreJugadorActionPerformed
-        // TODO add your handling code here:
-        String nombre = NombreJugador.getText().trim();
-        jLabelNombreJugador.setText(nombre); // Asigna el texto capturado al JLabel
-
-    }//GEN-LAST:event_NombreJugadorActionPerformed
        
     public String obtenerPartido(){
         return Partido.getText().trim(); 
@@ -885,11 +1051,11 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Obtener el nombre del equipo y jugador desde los campos correspondientes (por ejemplo, con campos de texto)
         String nombreEquipo = FILE_PATH + "_" + obtenerNombreEquipo();
-        String nombreJugador = NombreJugador.getText();
+        String nombreJugador = (String) NombreJugador.getSelectedItem();
 
     if (!nombreEquipo.isEmpty() && !nombreJugador.isEmpty()) {
         // Llamar al método para generar el gráfico pasando el nombre del equipo y del jugador
-        generarGraficoDesdeExcel(nombreEquipo, nombreJugador);
+        generarGraficoBarras(nombreEquipo, nombreJugador);
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, ingrese tanto el nombre del equipo como el del jugador.", 
                                       "Error", JOptionPane.ERROR_MESSAGE);
@@ -897,7 +1063,394 @@ public class Interfaz extends javax.swing.JFrame {
         
     }//GEN-LAST:event_graficoBarrasActionPerformed
 
-    public void generarGraficoDesdeExcel(String nombreEquipo, String nombreJugador) {
+    private void graficoLineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficoLineasActionPerformed
+        // TODO add your handling code here:
+        // Obtener el nombre del equipo y jugador desde los campos correspondientes (por ejemplo, con campos de texto)
+        String nombreEquipo = FILE_PATH + "_" + obtenerNombreEquipo();
+        String nombreJugador = (String) NombreJugador.getSelectedItem();
+
+    if (!nombreEquipo.isEmpty() && !nombreJugador.isEmpty()) {
+        // Llamar al método para generar el gráfico pasando el nombre del equipo y del jugador
+        generarGraficoLineas(nombreEquipo, nombreJugador);
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese tanto el nombre del equipo como el del jugador.", 
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+    }
+      
+    }//GEN-LAST:event_graficoLineasActionPerformed
+
+    
+    private void RadioButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }
+    
+    private void actualizarJugadores(String equipo) {
+        // Limpia el JComboBox
+        NombreJugador.removeAllItems();
+
+        // Agrega jugadores dependiendo del equipo seleccionado
+        switch (equipo) {
+            case "Toronto Raptors":
+                NombreJugador.addItem("Scottie Barnes");
+                NombreJugador.addItem("Bruno Fernandez");
+                NombreJugador.addItem("Ja'Kobe Walter");
+                break;
+            case "Golden State Warriors":
+                NombreJugador.addItem("Stephen Curry");
+                NombreJugador.addItem("Klay Thompson");
+                NombreJugador.addItem("Draymond Green");
+                break;
+            case "LA Lakers":
+                NombreJugador.addItem("LeBron James");
+                NombreJugador.addItem("Anthony Davis");
+                NombreJugador.addItem("D'Angelo Russell");
+                break;
+            case "Atlanta Hawks":
+            NombreJugador.addItem("Trae Young");
+            NombreJugador.addItem("Dejounte Murray");
+            NombreJugador.addItem("Clint Capela");
+            break;
+            case "Boston Celtics":
+                NombreJugador.addItem("Jayson Tatum");
+                NombreJugador.addItem("Jaylen Brown");
+                NombreJugador.addItem("Kristaps Porzingis");
+                break;
+            case "Brooklyn Nets":
+                NombreJugador.addItem("Mikal Bridges");
+                NombreJugador.addItem("Spencer Dinwiddie");
+                NombreJugador.addItem("Nic Claxton");
+                break;
+            case "Charlotte Hornets":
+                NombreJugador.addItem("LaMelo Ball");
+                NombreJugador.addItem("Terry Rozier");
+                NombreJugador.addItem("Gordon Hayward");
+                break;
+            case "Chicago Bulls":
+                NombreJugador.addItem("Zach LaVine");
+                NombreJugador.addItem("DeMar DeRozan");
+                NombreJugador.addItem("Nikola Vučević");
+                break;
+            case "Cleveland Cavaliers":
+                NombreJugador.addItem("Donovan Mitchell");
+                NombreJugador.addItem("Darius Garland");
+                NombreJugador.addItem("Jarrett Allen");
+                break;
+            case "Dallas Mavericks":
+                NombreJugador.addItem("Luka Dončić");
+                NombreJugador.addItem("Kyrie Irving");
+                NombreJugador.addItem("Tim Hardaway Jr.");
+                break;
+            case "Denver Nuggets":
+                NombreJugador.addItem("Nikola Jokić");
+                NombreJugador.addItem("Jamal Murray");
+                NombreJugador.addItem("Aaron Gordon");
+                break;
+            case "Detroit Pistons":
+                NombreJugador.addItem("Cade Cunningham");
+                NombreJugador.addItem("Jaden Ivey");
+                NombreJugador.addItem("Isaiah Stewart");
+                break;
+            case "Houston Rockets":
+                NombreJugador.addItem("Jalen Green");
+                NombreJugador.addItem("Fred VanVleet");
+                NombreJugador.addItem("Alperen Şengün");
+                break;
+            case "Indiana Pacers":
+                NombreJugador.addItem("Tyrese Haliburton");
+                NombreJugador.addItem("Myles Turner");
+                NombreJugador.addItem("Buddy Hield");
+                break;
+            case "LA Clippers":
+                NombreJugador.addItem("Kawhi Leonard");
+                NombreJugador.addItem("Paul George");
+                NombreJugador.addItem("Russell Westbrook");
+                break;
+            case "Memphis Grizzlies":
+                NombreJugador.addItem("Ja Morant");
+                NombreJugador.addItem("Desmond Bane");
+                NombreJugador.addItem("Jaren Jackson Jr.");
+                break;
+            case "Miami Heat":
+                NombreJugador.addItem("Jimmy Butler");
+                NombreJugador.addItem("Bam Adebayo");
+                NombreJugador.addItem("Tyler Herro");
+                break;
+            case "Milwaukee Bucks":
+                NombreJugador.addItem("Giannis Antetokounmpo");
+                NombreJugador.addItem("Damian Lillard");
+                NombreJugador.addItem("Brook Lopez");
+                break;
+            case "Minnesota Timberwolves":
+                NombreJugador.addItem("Anthony Edwards");
+                NombreJugador.addItem("Karl-Anthony Towns");
+                NombreJugador.addItem("Rudy Gobert");
+                break;
+            case "NY Knicks":
+                NombreJugador.addItem("Julius Randle");
+                NombreJugador.addItem("Jalen Brunson");
+                NombreJugador.addItem("RJ Barrett");
+                break;
+            case "New Orleans Pelicans":
+                NombreJugador.addItem("Zion Williamson");
+                NombreJugador.addItem("Brandon Ingram");
+                NombreJugador.addItem("CJ McCollum");
+                break;
+            case "Oklahoma City Thunder":
+                NombreJugador.addItem("Shai Gilgeous-Alexander");
+                NombreJugador.addItem("Josh Giddey");
+                NombreJugador.addItem("Chet Holmgren");
+                break;
+            case "Orlando Magic":
+                NombreJugador.addItem("Paolo Banchero");
+                NombreJugador.addItem("Franz Wagner");
+                NombreJugador.addItem("Markelle Fultz");
+                break;
+            case "Philadelphia 76ers":
+                NombreJugador.addItem("Joel Embiid");
+                NombreJugador.addItem("Tyrese Maxey");
+                NombreJugador.addItem("Tobias Harris");
+                break;
+            case "Phoenix Suns":
+                NombreJugador.addItem("Kevin Durant");
+                NombreJugador.addItem("Devin Booker");
+                NombreJugador.addItem("Bradley Beal");
+                break;
+            case "Portland Trail Blazers":
+                NombreJugador.addItem("Scoot Henderson");
+                NombreJugador.addItem("Deandre Ayton");
+                NombreJugador.addItem("Anfernee Simons");
+                break;
+            case "Sacramento Kings":
+                NombreJugador.addItem("De'Aaron Fox");
+                NombreJugador.addItem("Domantas Sabonis");
+                NombreJugador.addItem("Keegan Murray");
+                break;
+            case "San Antonio Spurs":
+                NombreJugador.addItem("Victor Wembanyama");
+                NombreJugador.addItem("Keldon Johnson");
+                NombreJugador.addItem("Devin Vassell");
+                break;
+            case "Utah Jazz":
+                NombreJugador.addItem("Lauri Markkanen");
+                NombreJugador.addItem("Jordan Clarkson");
+                NombreJugador.addItem("Walker Kessler");
+                break;
+            case "Washington Wizards":
+                NombreJugador.addItem("Kyle Kuzma");
+                NombreJugador.addItem("Jordan Poole");
+                NombreJugador.addItem("Deni Avdija");
+                break;
+            default:
+                NombreJugador.addItem("Selecciona un equipo");
+                break;
+        }
+
+        // Refrescar la vista del JComboBox
+        NombreJugador.repaint();
+        NombreJugador.revalidate();
+    }
+
+    
+    private void NombreJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreJugadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreJugadorActionPerformed
+
+    private void BostonCelticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BostonCelticsActionPerformed
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_BostonCelticsActionPerformed
+
+    private void TorontoRaptorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TorontoRaptorsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_TorontoRaptorsActionPerformed
+
+    private void GoldenStateWarriorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoldenStateWarriorsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_GoldenStateWarriorsActionPerformed
+
+    private void BrooklynNetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrooklynNetsActionPerformed
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_BrooklynNetsActionPerformed
+
+    private void NYKnicksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NYKnicksActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_NYKnicksActionPerformed
+
+    private void Philadelphia76ersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Philadelphia76ersActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_Philadelphia76ersActionPerformed
+
+    private void LAClippersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LAClippersActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_LAClippersActionPerformed
+
+    private void LALakersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LALakersActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_LALakersActionPerformed
+
+    private void PhoenixSunsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhoenixSunsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_PhoenixSunsActionPerformed
+
+    private void SacramentoKingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SacramentoKingsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_SacramentoKingsActionPerformed
+
+    private void ChicagoBullsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChicagoBullsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_ChicagoBullsActionPerformed
+
+    private void ClevelandCavaliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClevelandCavaliersActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_ClevelandCavaliersActionPerformed
+
+    private void DetroitPistonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetroitPistonsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_DetroitPistonsActionPerformed
+
+    private void IndianaPacersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IndianaPacersActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_IndianaPacersActionPerformed
+
+    private void MilwakeeBucksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MilwakeeBucksActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_MilwakeeBucksActionPerformed
+
+    private void AtlantaHawksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtlantaHawksActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_AtlantaHawksActionPerformed
+
+    private void CharlotteHornetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CharlotteHornetsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_CharlotteHornetsActionPerformed
+
+    private void MiamiHeatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MiamiHeatsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_MiamiHeatsActionPerformed
+
+    private void OrlandoMagicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrlandoMagicActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_OrlandoMagicActionPerformed
+
+    private void WhasigntonWizardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WhasigntonWizardsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_WhasigntonWizardsActionPerformed
+
+    private void DallasMavericksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DallasMavericksActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_DallasMavericksActionPerformed
+
+    private void HustonRocketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HustonRocketsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_HustonRocketsActionPerformed
+
+    private void MemphisGriezzliesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MemphisGriezzliesActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_MemphisGriezzliesActionPerformed
+
+    private void NewOrleandsPelicansActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewOrleandsPelicansActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_NewOrleandsPelicansActionPerformed
+
+    private void SanAntonioSpursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SanAntonioSpursActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_SanAntonioSpursActionPerformed
+
+    private void DenverNuggetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DenverNuggetsActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_DenverNuggetsActionPerformed
+
+    private void MinnesotaTimberwolvesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinnesotaTimberwolvesActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_MinnesotaTimberwolvesActionPerformed
+
+    private void OklahomaCityThunderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OklahomaCityThunderActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_OklahomaCityThunderActionPerformed
+
+    private void PortlanTrailBlazersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PortlanTrailBlazersActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_PortlanTrailBlazersActionPerformed
+
+    private void UtahJazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UtahJazzActionPerformed
+        // TODO add your handling code here:
+        String equipoSeleccionado = obtenerNombreEquipo();
+        actualizarJugadores(equipoSeleccionado);
+    }//GEN-LAST:event_UtahJazzActionPerformed
+
+    private void PartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PartidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PartidoActionPerformed
+
+ 
+
+    // Método para guardar el gráfico en un archivo .png
+    private void saveChartToFile(JFreeChart chart, File file) throws IOException {
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+
+        // Guardar la imagen del gráfico
+        ChartUtils.saveChartAsPNG(file, chart, 800, 600);
+    }
+    
+    
+    public void generarGraficoBarras(String nombreEquipo, String nombreJugador) {
     try {
         // Cargar el archivo Excel del equipo correspondiente
         FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
@@ -961,12 +1514,80 @@ public class Interfaz extends javax.swing.JFrame {
         e.printStackTrace();
     }
 }
+    
+    
+    
+    public void generarGraficoLineas(String nombreEquipo, String nombreJugador) {
+    try {
+        // Cargar el archivo Excel del equipo correspondiente
+        FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+
+        // Crear un Workbook a partir del archivo Excel
+        Workbook workbook = new XSSFWorkbook(file);
+
+        // Buscar la hoja que corresponde al jugador
+        Sheet sheet = workbook.getSheet(nombreJugador);
+
+        if (sheet == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear un dataset vacío para el gráfico
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Iterar sobre las filas de la hoja del jugador
+        for (Row row : sheet) {
+            // Filtrar por el nombre del jugador (aquí, no es necesario ya que ya estamos en la hoja del jugador)
+            if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
+
+                // Agregar los datos al dataset
+                dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
+            }
+        }
+
+        // Cerrar el archivo Excel
+        workbook.close();
+
+        // Crear el gráfico de barras
+        JFreeChart chart = ChartFactory.createLineChart(
+                "Puntos de " + nombreJugador,  // Título del gráfico, dinámico según el jugador
+                "Partido",                    // Etiqueta del eje X
+                "Puntos (FG)",                // Etiqueta del eje Y
+                dataset                       // Datos
+        );
+
+        // Personalizar el gráfico
+        chart.setBackgroundPaint(Color.white);
+        chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+
+        // Crear un panel para el gráfico
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Crear una ventana nueva para mostrar el gráfico
+        JFrame graficoFrame = new JFrame("Gráfico de Puntos de " + nombreJugador);
+        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        graficoFrame.getContentPane().add(chartPanel);
+        graficoFrame.pack();
+        graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
+        graficoFrame.setVisible(true);
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
 
     
     
     
     private String obtenerNombreJugador() {
-        return NombreJugador.getText().trim(); // Asegúrate de usar el JTextField correcto
+        return (String) NombreJugador.getSelectedItem(); // Devuelve el jugador seleccionado para
     }
 
 
@@ -1180,7 +1801,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem MinnesotaTimberwolves;
     private javax.swing.JRadioButtonMenuItem NYKnicks;
     private javax.swing.JRadioButtonMenuItem NewOrleandsPelicans;
-    private javax.swing.JTextField NombreJugador;
+    private javax.swing.JComboBox<String> NombreJugador;
     private javax.swing.JMenu Noroeste;
     private javax.swing.JRadioButtonMenuItem OklahomaCityThunder;
     private javax.swing.JRadioButtonMenuItem OrlandoMagic;
@@ -1202,6 +1823,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton graficoBarras;
+    private javax.swing.JButton graficoLineas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAnotados2;
     private javax.swing.JLabel jLabelAnotados3;
@@ -1221,6 +1843,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JSpinner libresAnotados;
     private javax.swing.JSpinner perdidas;
