@@ -5,6 +5,16 @@
 package com.mycompany.nba_estadisticas;
 
 
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import java.nio.file.Files;
 
 import java.io.FileInputStream;
@@ -24,13 +34,10 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
-
-
 import java.io.*;
 import java.util.*;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
-
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -55,11 +62,7 @@ public class Interfaz extends javax.swing.JFrame {
     private static double totalFg = 0;
     private static double totalEfg = 0;
     private static int numeroDeJugadores = 0;
-    
-    
-   
-    
-    
+       
     
     private JSpinner anotados3Spinner;
     private JSpinner totalTiros3Spinner;
@@ -136,6 +139,7 @@ public class Interfaz extends javax.swing.JFrame {
         graficoBarras = new javax.swing.JButton();
         graficoLineas = new javax.swing.JButton();
         NombreJugador = new javax.swing.JComboBox<>();
+        botonGenerarPDF = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         Equipo = new javax.swing.JMenu();
         Atlantico = new javax.swing.JMenu();
@@ -520,6 +524,19 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 40;
         jPanel4.add(NombreJugador, gridBagConstraints);
+
+        botonGenerarPDF.setText("PDF");
+        botonGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGenerarPDFActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        jPanel4.add(botonGenerarPDF, gridBagConstraints);
 
         jTabbedPane1.addTab("Menu", jPanel4);
 
@@ -1035,10 +1052,11 @@ public class Interfaz extends javax.swing.JFrame {
         // Llamada a los métodos para calcular FG, EFG y Valoración
         double fg = calcularFG();
         double efg = calcularEFG();
-        double valoracion = calcularValoracion(); // Método que calcula la valoración
+        double valoracion = calcularValoracion(); // Método que calcula la valoración 
+        int rebotes = rebotesDef + rebotesOf; //Conseguimos los rebotees totales
 
         // Llamada al método guardarExcel con todos los parámetros necesarios
-        guardarEnExcel(partido, nombreEquipo,nombreJugador, tiros2, tiros3, totalDeTiros2, totalDeTiros3, tirosTotalLibres, fg, efg, valoracion);
+        guardarEnExcel(partido, nombreEquipo,nombreJugador, tiros2, tiros3, totalDeTiros2, totalDeTiros3, tirosTotalLibres, rebotes, fg, efg, valoracion);
 
         JOptionPane.showMessageDialog(this, "Datos guardados en Excel con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     } catch (Exception e) {
@@ -1438,149 +1456,310 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PartidoActionPerformed
 
- 
+    private void botonGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarPDFActionPerformed
+        // TODO add your handling code here:
+        String nombreEquipo = obtenerNombreEquipo();   // Suponiendo que tienes un JTextField para el equipo
+        String nombreJugador = obtenerNombreJugador();
+        // Llamar al método para generar el gráfico y PDF
+        generarGraficosYPDF(nombreEquipo, nombreJugador);
+       
+    }//GEN-LAST:event_botonGenerarPDFActionPerformed
+
+    public void generarGraficosYPDF(String nombreEquipo, String nombreJugador) {
+        try {
+            // Cargar el archivo Excel del equipo correspondiente
+            FileInputStream file = new FileInputStream(new File(FILE_PATH + "_" + nombreEquipo + ".xlsx"));
+            Workbook workbook = new XSSFWorkbook(file);
+
+            // Buscar la hoja que corresponde al jugador
+            Sheet sheet = workbook.getSheet(nombreJugador);
+
+            if (sheet == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear un dataset vacío para los gráficos
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+            // Iterar sobre las filas de la hoja del jugador
+            for (Row row : sheet) {
+                if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                    String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                    double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
+
+                    // Agregar los datos al dataset
+                    dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
+                }
+            }
+
+            // Cerrar el archivo Excel
+            workbook.close();
+
+            // Crear el gráfico de barras
+            JFreeChart chartBarras = ChartFactory.createBarChart(
+                    "Puntos de " + nombreJugador,
+                    "Partido",
+                    "Puntos (FG)",
+                    dataset,
+                    PlotOrientation.VERTICAL,
+                    true,
+                    true,
+                    false
+            );
+
+            // Crear el gráfico de líneas
+            JFreeChart chartLineas = ChartFactory.createLineChart(
+                    "Puntos de " + nombreJugador,
+                    "Partido",
+                    "Puntos (FG)",
+                    dataset,
+                    PlotOrientation.VERTICAL,
+                    true,
+                    true,
+                    false
+            );
+
+            // Guardar los gráficos como imágenes
+            int width = 400;   // Ancho del gráfico
+            int height = 400;  // Altura del gráfico
+
+            String chartFilePathBarras = FILE_PATH + "\\Graficas" + "_" + nombreJugador + "_graficoBarras.png";
+            ChartUtils.saveChartAsPNG(new File(chartFilePathBarras), chartBarras, width, height);
+
+            String chartFilePathLineas = FILE_PATH + "\\Graficas" + "_" + nombreJugador + "_graficoLineas.png";
+            ChartUtils.saveChartAsPNG(new File(chartFilePathLineas), chartLineas, width, height);
+
+            // Crear el PDF e insertar los gráficos
+
+            // PDF para gráfico de barras
+            String pdfFilePathBarras = FILE_PATH + "_" + nombreJugador + "_graficoBarras.pdf";
+            Document documentBarras = new Document();
+            PdfWriter writerBarras = PdfWriter.getInstance(documentBarras, new java.io.FileOutputStream(pdfFilePathBarras));
+            documentBarras.open();
+
+            // Insertar imagen de barras en PDF
+            Image chartImageBarras = Image.getInstance(chartFilePathBarras);
+
+            chartImageBarras.setAlignment(Image.ALIGN_CENTER);
+            documentBarras.add(chartImageBarras);
+
+            // Agregar un párrafo opcional al PDF
+            documentBarras.add(new Paragraph("Gráfico de puntos de FG por partido (Barras)"));
+
+            // Cerrar el documento del gráfico de barras
+            documentBarras.close();
+
+            // PDF para gráfico de líneas
+            String pdfFilePathLineas = FILE_PATH + "_" + nombreJugador + "_graficoLineas.pdf";
+            Document documentLineas = new Document();
+            PdfWriter writerLineas = PdfWriter.getInstance(documentLineas, new java.io.FileOutputStream(pdfFilePathLineas));
+            documentLineas.open();
+
+            // Insertar imagen de líneas en PDF
+            Image chartImageLineas = Image.getInstance(chartFilePathLineas);
+
+            chartImageLineas.setAlignment(Image.ALIGN_CENTER);
+            documentLineas.add(chartImageLineas);
+
+            // Agregar un párrafo opcional al PDF
+            documentLineas.add(new Paragraph("Gráfico de puntos de FG por partido (Líneas)"));
+
+            // Cerrar el documento del gráfico de líneas
+            documentLineas.close();
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "PDFs generados exitosamente: " + pdfFilePathBarras + " y " + pdfFilePathLineas,
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IOException | DocumentException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el gráfico o el PDF: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
 
     // Método para guardar el gráfico en un archivo .png
     private void saveChartToFile(JFreeChart chart, File file) throws IOException {
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(800, 600));
+        chartPanel.setPreferredSize(new Dimension(400, 400));
 
         // Guardar la imagen del gráfico
-        ChartUtils.saveChartAsPNG(file, chart, 800, 600);
+        ChartUtils.saveChartAsPNG(file, chart, 400, 400);
     }
+    
+    
+    
     
     
     public void generarGraficoBarras(String nombreEquipo, String nombreJugador) {
-    try {
-        // Cargar el archivo Excel del equipo correspondiente
-        FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+        try {
+            // Ruta base para guardar las gráficas
+            String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
 
-        // Crear un Workbook a partir del archivo Excel
-        Workbook workbook = new XSSFWorkbook(file);
-
-        // Buscar la hoja que corresponde al jugador
-        Sheet sheet = workbook.getSheet(nombreJugador);
-
-        if (sheet == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
-                                          "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Crear un dataset vacío para el gráfico
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        // Iterar sobre las filas de la hoja del jugador
-        for (Row row : sheet) {
-            // Filtrar por el nombre del jugador (aquí, no es necesario ya que ya estamos en la hoja del jugador)
-            if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
-                String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
-                double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
-
-                // Agregar los datos al dataset
-                dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
+            // Crear una carpeta específica para el jugador dentro de la ruta base
+            File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
+            if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
+                throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
             }
+
+            // Cargar el archivo Excel del equipo correspondiente
+            FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+
+            // Crear un Workbook a partir del archivo Excel
+            Workbook workbook = new XSSFWorkbook(file);
+
+            // Buscar la hoja que corresponde al jugador
+            Sheet sheet = workbook.getSheet(nombreJugador);
+
+            if (sheet == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                              "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear un dataset vacío para el gráfico
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+            // Iterar sobre las filas de la hoja del jugador
+            for (Row row : sheet) {
+                // Filtrar por el nombre del jugador (aquí, no es necesario ya que ya estamos en la hoja del jugador)
+                if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                    String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                    double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
+
+                    // Agregar los datos al dataset
+                    dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
+                }
+            }
+
+            // Cerrar el archivo Excel
+            workbook.close();
+
+            // Crear el gráfico de barras
+            JFreeChart chart = ChartFactory.createBarChart(
+                    "Puntos de " + nombreJugador,  // Título del gráfico, dinámico según el jugador
+                    "Partido",                    // Etiqueta del eje X
+                    "Puntos (FG)",                // Etiqueta del eje Y
+                    dataset                       // Datos
+            );
+
+            // Personalizar el gráfico
+            chart.setBackgroundPaint(Color.white);
+            chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+
+            // Crear el panel para el gráfico
+            ChartPanel chartPanel = new ChartPanel(chart);
+
+            // Crear una ventana nueva para mostrar el gráfico
+            JFrame graficoFrame = new JFrame("Gráfico de Puntos de " + nombreJugador);
+            graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            graficoFrame.getContentPane().add(chartPanel);
+            graficoFrame.pack();
+            graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
+            graficoFrame.setVisible(true);
+
+            // Guardar el gráfico en la carpeta del jugador
+            String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".png";
+            ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);  // Dimensiones del gráfico
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
+                                          "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel: " + e.getMessage(),
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-
-        // Cerrar el archivo Excel
-        workbook.close();
-
-        // Crear el gráfico de barras
-        JFreeChart chart = ChartFactory.createBarChart(
-                "Puntos de " + nombreJugador,  // Título del gráfico, dinámico según el jugador
-                "Partido",                    // Etiqueta del eje X
-                "Puntos (FG)",                // Etiqueta del eje Y
-                dataset                       // Datos
-        );
-
-        // Personalizar el gráfico
-        chart.setBackgroundPaint(Color.white);
-        chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
-
-        // Crear un panel para el gráfico
-        ChartPanel chartPanel = new ChartPanel(chart);
-
-        // Crear una ventana nueva para mostrar el gráfico
-        JFrame graficoFrame = new JFrame("Gráfico de Puntos de " + nombreJugador);
-        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        graficoFrame.getContentPane().add(chartPanel);
-        graficoFrame.pack();
-        graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
-        graficoFrame.setVisible(true);
-
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel: " + e.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
     }
-}
+
     
     
     
     public void generarGraficoLineas(String nombreEquipo, String nombreJugador) {
-    try {
-        // Cargar el archivo Excel del equipo correspondiente
-        FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+        try {
+            // Ruta base para guardar las gráficas
+            String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
 
-        // Crear un Workbook a partir del archivo Excel
-        Workbook workbook = new XSSFWorkbook(file);
-
-        // Buscar la hoja que corresponde al jugador
-        Sheet sheet = workbook.getSheet(nombreJugador);
-
-        if (sheet == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
-                                          "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Crear un dataset vacío para el gráfico
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        // Iterar sobre las filas de la hoja del jugador
-        for (Row row : sheet) {
-            // Filtrar por el nombre del jugador (aquí, no es necesario ya que ya estamos en la hoja del jugador)
-            if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
-                String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
-                double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
-
-                // Agregar los datos al dataset
-                dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
+            // Crear una carpeta específica para el jugador dentro de la ruta base
+            File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
+            if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
+                throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
             }
+
+            // Cargar el archivo Excel del equipo correspondiente
+            FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+            Workbook workbook = new XSSFWorkbook(file);
+
+            // Buscar la hoja que corresponde al jugador
+            Sheet sheet = workbook.getSheet(nombreJugador);
+            if (sheet == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                              "Error", JOptionPane.ERROR_MESSAGE);
+                workbook.close();
+                return;
+            }
+
+            // Crear un dataset vacío para el gráfico
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+            // Iterar sobre las filas de la hoja del jugador
+            for (Row row : sheet) {
+                if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                    String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                    double rebotes = row.getCell(6).getNumericCellValue(); // Columna I (rebotes)
+                    dataset.addValue(rebotes, "Rebotes", partido); // Agregar los datos al dataset
+                }
+            }
+            workbook.close();
+
+            // Crear el gráfico de líneas
+            JFreeChart chart = ChartFactory.createLineChart(
+                    "Rebotes de " + nombreJugador,  // Título del gráfico
+                    "Partido",                      // Etiqueta del eje X
+                    "Rebotes",                      // Etiqueta del eje Y
+                    dataset                         // Datos
+            );
+
+            // Personalizar el gráfico
+            chart.setBackgroundPaint(Color.white);
+            chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+
+            // Guardar el gráfico en la carpeta específica del jugador
+            String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
+            ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
+                                          "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            // Mostrar el gráfico en una ventana nueva
+            ChartPanel chartPanel = new ChartPanel(chart);
+            JFrame graficoFrame = new JFrame("Gráfico de Rebotes de " + nombreJugador);
+            graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            graficoFrame.getContentPane().add(chartPanel);
+            graficoFrame.pack();
+            graficoFrame.setLocationRelativeTo(null);
+            graficoFrame.setVisible(true);
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel o al crear carpetas: " + e.getMessage(),
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
 
-        // Cerrar el archivo Excel
-        workbook.close();
-
-        // Crear el gráfico de barras
-        JFreeChart chart = ChartFactory.createLineChart(
-                "Puntos de " + nombreJugador,  // Título del gráfico, dinámico según el jugador
-                "Partido",                    // Etiqueta del eje X
-                "Puntos (FG)",                // Etiqueta del eje Y
-                dataset                       // Datos
-        );
-
-        // Personalizar el gráfico
-        chart.setBackgroundPaint(Color.white);
-        chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
-
-        // Crear un panel para el gráfico
-        ChartPanel chartPanel = new ChartPanel(chart);
-
-        // Crear una ventana nueva para mostrar el gráfico
-        JFrame graficoFrame = new JFrame("Gráfico de Puntos de " + nombreJugador);
-        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        graficoFrame.getContentPane().add(chartPanel);
-        graficoFrame.pack();
-        graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
-        graficoFrame.setVisible(true);
-
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel: " + e.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
     }
-}
 
 
     
@@ -1596,7 +1775,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     
     
-    public void guardarEnExcel(String partido, String nombreEquipo, String nombreJugador, int anotados2, int anotados3, int totalTiros2, int totalTiros3, int totalTirosLibres, double fg, double efg, double valoracion) {
+    public void guardarEnExcel(String partido, String nombreEquipo, String nombreJugador, int anotados2, int anotados3, int totalTiros2, int totalTiros3, int totalTirosLibres,int rebotes, double fg, double efg, double valoracion) {
     
     
         String nombreArchivo = FILE_PATH + "_" + nombreEquipo + ".xlsx";
@@ -1641,10 +1820,11 @@ public class Interfaz extends javax.swing.JFrame {
             newRow.createCell(3).setCellValue(totalTiros2);
             newRow.createCell(4).setCellValue(totalTiros3);
             newRow.createCell(5).setCellValue(totalTiros2 + totalTiros3);
-            newRow.createCell(6).setCellValue(fg);
-            newRow.createCell(7).setCellValue(efg);
-            newRow.createCell(8).setCellValue(ts); // Nueva columna TS%
-            newRow.createCell(9).setCellValue(valoracion); // Nueva columna Valoración (ahora es double)
+            newRow.createCell(6).setCellValue(rebotes); //Nueva Columna para los rebotes
+            newRow.createCell(7).setCellValue(fg);
+            newRow.createCell(8).setCellValue(efg);
+            newRow.createCell(9).setCellValue(ts); // Nueva columna TS%
+            newRow.createCell(10).setCellValue(valoracion); // Nueva columna Valoración (ahora es double)
 
             // Calcular promedios
             double totalFg = 0, totalEfg = 0, totalTs = 0, totalValoracion = 0;
@@ -1691,10 +1871,11 @@ public class Interfaz extends javax.swing.JFrame {
         headerRow.createCell(3).setCellValue("Tiros de 2");
         headerRow.createCell(4).setCellValue("Tiros de 3");
         headerRow.createCell(5).setCellValue("Total Tiros");
-        headerRow.createCell(6).setCellValue("FG (%)");
-        headerRow.createCell(7).setCellValue("eFG (%)");
-        headerRow.createCell(8).setCellValue("TS (%)");
-        headerRow.createCell(9).setCellValue("Valoración");
+        headerRow.createCell(6).setCellValue("Rebotes");
+        headerRow.createCell(7).setCellValue("FG (%)");
+        headerRow.createCell(8).setCellValue("eFG (%)");
+        headerRow.createCell(9).setCellValue("TS (%)");
+        headerRow.createCell(10).setCellValue("Valoración");
     }
 
 
@@ -1820,6 +2001,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JSpinner anotados2;
     private javax.swing.JSpinner anotados3;
     private javax.swing.JSpinner asistencias;
+    private javax.swing.JButton botonGenerarPDF;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton graficoBarras;
