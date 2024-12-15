@@ -4,16 +4,34 @@
  */
 package com.mycompany.nba_estadisticas;
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import javax.swing.*;
+import java.io.*;
+import java.awt.Color;
 
 
 import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+
 
 import java.nio.file.Files;
 
@@ -41,6 +59,7 @@ import javax.swing.JRadioButtonMenuItem;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFrame;
@@ -1461,308 +1480,297 @@ public class Interfaz extends javax.swing.JFrame {
         String nombreEquipo = obtenerNombreEquipo();   // Suponiendo que tienes un JTextField para el equipo
         String nombreJugador = obtenerNombreJugador();
         // Llamar al método para generar el gráfico y PDF
-        generarGraficosYPDF(nombreEquipo, nombreJugador);
-       
+        //generarPDF(nombreEquipo, nombreJugador);
+        String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
+        
+        String rutaBaseExcel = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\nba_estadisticas";
+
+
+        // Crear el primer gráfico (ejemplo: gráfico de líneas)
+        JFreeChart grafico1 = generarGraficoLineas(nombreEquipo, nombreJugador);
+
+        // Crear el segundo gráfico (ejemplo: gráfico de barras o algún otro)
+        JFreeChart grafico2 = generarGraficoBarras(nombreEquipo, nombreJugador);
+
+        // Generar el PDF con ambos gráficos
+        generarPDFConGraficos(rutaBaseGraficas, nombreJugador, grafico1, grafico2);     
     }//GEN-LAST:event_botonGenerarPDFActionPerformed
 
-    public void generarGraficosYPDF(String nombreEquipo, String nombreJugador) {
-        try {
-            // Cargar el archivo Excel del equipo correspondiente
-            FileInputStream file = new FileInputStream(new File(FILE_PATH + "_" + nombreEquipo + ".xlsx"));
-            Workbook workbook = new XSSFWorkbook(file);
+ public JFreeChart generarGraficoBarras(String nombreEquipo, String nombreJugador) {
+    try {
+        // Ruta base para guardar las gráficas
+        String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
 
-            // Buscar la hoja que corresponde al jugador
-            Sheet sheet = workbook.getSheet(nombreJugador);
-
-            if (sheet == null) {
-                JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Crear un dataset vacío para los gráficos
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-            // Iterar sobre las filas de la hoja del jugador
-            for (Row row : sheet) {
-                if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
-                    String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
-                    double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
-
-                    // Agregar los datos al dataset
-                    dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
-                }
-            }
-
-            // Cerrar el archivo Excel
-            workbook.close();
-
-            // Crear el gráfico de barras
-            JFreeChart chartBarras = ChartFactory.createBarChart(
-                    "Puntos de " + nombreJugador,
-                    "Partido",
-                    "Puntos (FG)",
-                    dataset,
-                    PlotOrientation.VERTICAL,
-                    true,
-                    true,
-                    false
-            );
-
-            // Crear el gráfico de líneas
-            JFreeChart chartLineas = ChartFactory.createLineChart(
-                    "Puntos de " + nombreJugador,
-                    "Partido",
-                    "Puntos (FG)",
-                    dataset,
-                    PlotOrientation.VERTICAL,
-                    true,
-                    true,
-                    false
-            );
-
-            // Guardar los gráficos como imágenes
-            int width = 400;   // Ancho del gráfico
-            int height = 400;  // Altura del gráfico
-
-            String chartFilePathBarras = FILE_PATH + "\\Graficas" + "_" + nombreJugador + "_graficoBarras.png";
-            ChartUtils.saveChartAsPNG(new File(chartFilePathBarras), chartBarras, width, height);
-
-            String chartFilePathLineas = FILE_PATH + "\\Graficas" + "_" + nombreJugador + "_graficoLineas.png";
-            ChartUtils.saveChartAsPNG(new File(chartFilePathLineas), chartLineas, width, height);
-
-            // Crear el PDF e insertar los gráficos
-
-            // PDF para gráfico de barras
-            String pdfFilePathBarras = FILE_PATH + "_" + nombreJugador + "_graficoBarras.pdf";
-            Document documentBarras = new Document();
-            PdfWriter writerBarras = PdfWriter.getInstance(documentBarras, new java.io.FileOutputStream(pdfFilePathBarras));
-            documentBarras.open();
-
-            // Insertar imagen de barras en PDF
-            Image chartImageBarras = Image.getInstance(chartFilePathBarras);
-
-            chartImageBarras.setAlignment(Image.ALIGN_CENTER);
-            documentBarras.add(chartImageBarras);
-
-            // Agregar un párrafo opcional al PDF
-            documentBarras.add(new Paragraph("Gráfico de puntos de FG por partido (Barras)"));
-
-            // Cerrar el documento del gráfico de barras
-            documentBarras.close();
-
-            // PDF para gráfico de líneas
-            String pdfFilePathLineas = FILE_PATH + "_" + nombreJugador + "_graficoLineas.pdf";
-            Document documentLineas = new Document();
-            PdfWriter writerLineas = PdfWriter.getInstance(documentLineas, new java.io.FileOutputStream(pdfFilePathLineas));
-            documentLineas.open();
-
-            // Insertar imagen de líneas en PDF
-            Image chartImageLineas = Image.getInstance(chartFilePathLineas);
-
-            chartImageLineas.setAlignment(Image.ALIGN_CENTER);
-            documentLineas.add(chartImageLineas);
-
-            // Agregar un párrafo opcional al PDF
-            documentLineas.add(new Paragraph("Gráfico de puntos de FG por partido (Líneas)"));
-
-            // Cerrar el documento del gráfico de líneas
-            documentLineas.close();
-
-            // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(null, "PDFs generados exitosamente: " + pdfFilePathBarras + " y " + pdfFilePathLineas,
-                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (IOException | DocumentException e) {
-            JOptionPane.showMessageDialog(null, "Error al generar el gráfico o el PDF: " + e.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+        // Crear una carpeta específica para el jugador dentro de la ruta base
+        File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
+        if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
+            throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
         }
-    }
 
+        // Cargar el archivo Excel del equipo correspondiente
+        FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
 
-    // Método para guardar el gráfico en un archivo .png
-    private void saveChartToFile(JFreeChart chart, File file) throws IOException {
+        // Crear un Workbook a partir del archivo Excel
+        Workbook workbook = new XSSFWorkbook(file);
+
+        // Buscar la hoja que corresponde al jugador
+        Sheet sheet = workbook.getSheet(nombreJugador);
+
+        if (sheet == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            return null;  // Retorna null si no se encuentra la hoja del jugador
+        }
+
+        // Crear un dataset vacío para el gráfico
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Iterar sobre las filas de la hoja del jugador
+        for (Row row : sheet) {
+            // Filtrar por el nombre del jugador (aquí, no es necesario ya que ya estamos en la hoja del jugador)
+            if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
+
+                // Agregar los datos al dataset
+                dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
+            }
+        }
+
+        // Cerrar el archivo Excel
+        workbook.close();
+
+        // Crear el gráfico de barras
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Puntos de " + nombreJugador,  // Título del gráfico, dinámico según el jugador
+                "Partido",                    // Etiqueta del eje X
+                "Puntos (FG)",                // Etiqueta del eje Y
+                dataset                       // Datos
+        );
+
+        // Personalizar el gráfico
+        chart.setBackgroundPaint(Color.white);
+        chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+
+        // Crear el panel para el gráfico
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(400, 400));
 
-        // Guardar la imagen del gráfico
-        ChartUtils.saveChartAsPNG(file, chart, 400, 400);
+        // Crear una ventana nueva para mostrar el gráfico
+        JFrame graficoFrame = new JFrame("Gráfico de Puntos de " + nombreJugador);
+        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        graficoFrame.getContentPane().add(chartPanel);
+        graficoFrame.pack();
+        graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
+        graficoFrame.setVisible(true);
+
+        // Guardar el gráfico en la carpeta del jugador
+        String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".png";
+        ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);  // Dimensiones del gráfico
+        
+        // Guardar el gráfico en un archivo PDF
+        String nombreArchivoPDF = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".pdf";
+        guardarGraficoEnPDF(nombreArchivo, nombreArchivoPDF);
+
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
+                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        return chart;  // Retorna el gráfico creado
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        return null;  // Retorna null si hay un error
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        return null;  // Retorna null si hay un error
     }
-    
-    
-    
-    
-    
-    public void generarGraficoBarras(String nombreEquipo, String nombreJugador) {
-        try {
-            // Ruta base para guardar las gráficas
-            String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
+}
 
-            // Crear una carpeta específica para el jugador dentro de la ruta base
-            File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
-            if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
-                throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
-            }
-
-            // Cargar el archivo Excel del equipo correspondiente
-            FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
-
-            // Crear un Workbook a partir del archivo Excel
-            Workbook workbook = new XSSFWorkbook(file);
-
-            // Buscar la hoja que corresponde al jugador
-            Sheet sheet = workbook.getSheet(nombreJugador);
-
-            if (sheet == null) {
-                JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
-                                              "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Crear un dataset vacío para el gráfico
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-            // Iterar sobre las filas de la hoja del jugador
-            for (Row row : sheet) {
-                // Filtrar por el nombre del jugador (aquí, no es necesario ya que ya estamos en la hoja del jugador)
-                if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
-                    String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
-                    double fg = row.getCell(8).getNumericCellValue();      // Columna I (FG)
-
-                    // Agregar los datos al dataset
-                    dataset.addValue(fg, "FG", partido);  // Agregar los puntos (FG) por partido
-                }
-            }
-
-            // Cerrar el archivo Excel
-            workbook.close();
-
-            // Crear el gráfico de barras
-            JFreeChart chart = ChartFactory.createBarChart(
-                    "Puntos de " + nombreJugador,  // Título del gráfico, dinámico según el jugador
-                    "Partido",                    // Etiqueta del eje X
-                    "Puntos (FG)",                // Etiqueta del eje Y
-                    dataset                       // Datos
-            );
-
-            // Personalizar el gráfico
-            chart.setBackgroundPaint(Color.white);
-            chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
-
-            // Crear el panel para el gráfico
-            ChartPanel chartPanel = new ChartPanel(chart);
-
-            // Crear una ventana nueva para mostrar el gráfico
-            JFrame graficoFrame = new JFrame("Gráfico de Puntos de " + nombreJugador);
-            graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            graficoFrame.getContentPane().add(chartPanel);
-            graficoFrame.pack();
-            graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
-            graficoFrame.setVisible(true);
-
-            // Guardar el gráfico en la carpeta del jugador
-            String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".png";
-            ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);  // Dimensiones del gráfico
-
-            // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
-                                          "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel: " + e.getMessage(),
-                                          "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
-                                          "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }
+ 
 
     
-    
-    
-    public void generarGraficoLineas(String nombreEquipo, String nombreJugador) {
-        try {
-            // Ruta base para guardar las gráficas
-            String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
+    public JFreeChart generarGraficoLineas(String nombreEquipo, String nombreJugador) {
+    try {
+        // Ruta base para guardar las gráficas
+        String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
 
-            // Crear una carpeta específica para el jugador dentro de la ruta base
-            File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
-            if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
-                throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
-            }
-
-            // Cargar el archivo Excel del equipo correspondiente
-            FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
-            Workbook workbook = new XSSFWorkbook(file);
-
-            // Buscar la hoja que corresponde al jugador
-            Sheet sheet = workbook.getSheet(nombreJugador);
-            if (sheet == null) {
-                JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
-                                              "Error", JOptionPane.ERROR_MESSAGE);
-                workbook.close();
-                return;
-            }
-
-            // Crear un dataset vacío para el gráfico
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-            // Iterar sobre las filas de la hoja del jugador
-            for (Row row : sheet) {
-                if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
-                    String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
-                    double rebotes = row.getCell(6).getNumericCellValue(); // Columna I (rebotes)
-                    dataset.addValue(rebotes, "Rebotes", partido); // Agregar los datos al dataset
-                }
-            }
-            workbook.close();
-
-            // Crear el gráfico de líneas
-            JFreeChart chart = ChartFactory.createLineChart(
-                    "Rebotes de " + nombreJugador,  // Título del gráfico
-                    "Partido",                      // Etiqueta del eje X
-                    "Rebotes",                      // Etiqueta del eje Y
-                    dataset                         // Datos
-            );
-
-            // Personalizar el gráfico
-            chart.setBackgroundPaint(Color.white);
-            chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
-
-            // Guardar el gráfico en la carpeta específica del jugador
-            String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
-            ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);
-
-            // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
-                                          "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-            // Mostrar el gráfico en una ventana nueva
-            ChartPanel chartPanel = new ChartPanel(chart);
-            JFrame graficoFrame = new JFrame("Gráfico de Rebotes de " + nombreJugador);
-            graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            graficoFrame.getContentPane().add(chartPanel);
-            graficoFrame.pack();
-            graficoFrame.setLocationRelativeTo(null);
-            graficoFrame.setVisible(true);
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel o al crear carpetas: " + e.getMessage(),
-                                          "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
-                                          "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+        // Crear una carpeta específica para el jugador dentro de la ruta base
+        File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
+        if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
+            throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
         }
 
+        // Cargar el archivo Excel del equipo correspondiente
+        FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+        Workbook workbook = new XSSFWorkbook(file);
+
+        // Buscar la hoja que corresponde al jugador
+        Sheet sheet = workbook.getSheet(nombreJugador);
+        if (sheet == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            workbook.close();
+            return null;  // Retorna null si no se encuentra la hoja
+        }
+
+        // Crear un dataset vacío para el gráfico
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Iterar sobre las filas de la hoja del jugador
+        for (Row row : sheet) {
+            if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                double rebotesTotales= row.getCell(6).getNumericCellValue();  // Columna I (rebotes defensivos)                
+               
+
+                // Agregar los datos al dataset para el gráfico de líneas
+                dataset.addValue(rebotesTotales, "Rebotes", partido); // Agregar los rebotes totales por partido
+            }
+        }
+        workbook.close();
+
+        // Crear el gráfico de líneas
+        JFreeChart chart = ChartFactory.createLineChart(
+                "Rebotes de " + nombreJugador,  // Título del gráfico
+                "Partido",                      // Etiqueta del eje X
+                "Rebotes",                      // Etiqueta del eje Y
+                dataset                         // Datos
+        );
+
+        // Personalizar el gráfico
+        chart.setBackgroundPaint(Color.white);
+        chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+
+        // Crear el panel para el gráfico
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Crear una ventana nueva para mostrar el gráfico
+        JFrame graficoFrame = new JFrame("Gráfico de Rebotes de " + nombreJugador);
+        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        graficoFrame.getContentPane().add(chartPanel);
+        graficoFrame.pack();
+        graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
+        graficoFrame.setVisible(true);
+
+        // Guardar el gráfico en la carpeta del jugador
+        String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
+        ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);  // Dimensiones del gráfico
+        
+        
+        // Guardar el gráfico en un archivo PDF
+        String nombreArchivoPDF = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".pdf";
+        guardarGraficoEnPDF(nombreArchivo, nombreArchivoPDF);
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
+                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        return chart;  // Retorna el gráfico creado
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel o al crear carpetas: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        return null;  // Retorna null si hay un error
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        return null;  // Retorna null si hay un error
     }
+}
+    private void generarPDFConGraficos(String rutaBaseGraficas, String nombreJugador, JFreeChart grafico1, JFreeChart grafico2) {
+    try {
+        // Crear carpeta para el jugador si no existe
+        File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
+        if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
+            JOptionPane.showMessageDialog(null, "No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath(),
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Guardar el gráfico 1
+        String archivoGrafico1 = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
+        ChartUtils.saveChartAsPNG(new File(archivoGrafico1), grafico1, 800, 600);
+
+        // Guardar el gráfico 2
+        String archivoGrafico2 = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".png";
+        ChartUtils.saveChartAsPNG(new File(archivoGrafico2), grafico2, 800, 600);
+
+        // Crear el archivo PDF
+        String archivoPDF = carpetaJugador.getAbsolutePath() + File.separator + "Estadisticas_" + nombreJugador + ".pdf";
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(archivoPDF));
+
+        document.open();
+        document.add(new Paragraph("Estadísticas de " + nombreJugador));
+        document.add(new Paragraph(" "));
+
+        // Agregar los gráficos al PDF
+        Image img1 = Image.getInstance(archivoGrafico1);
+        img1.scaleToFit(500, 300); // Ajustar tamaño del gráfico 1
+        document.add(img1);
+
+        document.add(new Paragraph(" ")); // Espaciado
+
+        Image img2 = Image.getInstance(archivoGrafico2);
+        img2.scaleToFit(500, 300); // Ajustar tamaño del gráfico 2
+        document.add(img2);
+
+        document.close();
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(null, "PDF generado en: " + archivoPDF,
+                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
 
 
-    
+public void guardarGraficoEnPDF(String rutaImagen, String rutaPDF) {
+    try {
+        // Crear el documento PDF
+        Document documento = new Document(PageSize.A4);
+        PdfWriter.getInstance(documento, new FileOutputStream(rutaPDF));
+
+        // Abrir el documento para escribir
+        documento.open();
+
+        // Añadir título al PDF
+        documento.add(new Paragraph("Gráfico de Puntos", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18)));
+        documento.add(new Paragraph("\n")); // Espaciado
+
+        // Leer la imagen del gráfico
+        Image imagen = Image.getInstance(rutaImagen);
+        
+        // Ajustar la imagen al ancho de la página y mantener proporciones
+        imagen.scaleToFit(PageSize.A4.getWidth() - 50, PageSize.A4.getHeight() - 100);
+        imagen.setAlignment(Image.ALIGN_CENTER);
+
+        // Añadir la imagen al documento
+        documento.add(imagen);
+
+        // Cerrar el documento
+        documento.close();
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + rutaPDF,
+                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al guardar el gráfico en PDF: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
     
     
     private String obtenerNombreJugador() {
