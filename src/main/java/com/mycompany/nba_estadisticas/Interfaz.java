@@ -30,7 +30,10 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
@@ -1641,53 +1644,6 @@ public class Interfaz extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_GraficosPDFActionPerformed
 
-    public void GenerarPDF(JFreeChart grafico1, JFreeChart grafico2) {
-        try {
-            // Ruta del archivo PDF
-            String rutaPDF = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
-
-            // Crear el documento PDF
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
-            document.open();
-
-            // Crear imágenes temporales para los gráficos
-            File archivoGrafico1 = new File("grafico_barras_temp.png");
-            File archivoGrafico2 = new File("grafico_lineas_temp.png");
-
-            // Guardar gráficos como imágenes PNG
-            ChartUtils.saveChartAsPNG(archivoGrafico1, grafico1, 800, 600);
-            ChartUtils.saveChartAsPNG(archivoGrafico2, grafico2, 800, 600);
-
-            // Cargar las imágenes al PDF
-            Image imagenGrafico1 = Image.getInstance(archivoGrafico1.getAbsolutePath());
-            Image imagenGrafico2 = Image.getInstance(archivoGrafico2.getAbsolutePath());
-
-            // Ajustar las imágenes al tamaño de página
-            imagenGrafico1.scaleToFit(500, 400);
-            imagenGrafico2.scaleToFit(500, 400);
-
-            // Agregar las imágenes al documento
-            document.add(imagenGrafico1);
-            document.add(imagenGrafico2);
-
-            // Cerrar el documento
-            document.close();
-
-            // Eliminar archivos temporales
-            archivoGrafico1.delete();
-            archivoGrafico2.delete();
-
-            // Mensaje de éxito
-            JOptionPane.showMessageDialog(null, "PDF generado exitosamente en: " + rutaPDF,
-                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + e.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }
     
  public JFreeChart generarGraficoBarras(String nombreEquipo, String nombreJugador) {
     try {
@@ -2135,10 +2091,9 @@ private void guardarGraficosEnPDF(String rutaBarras, String rutaLineas, String r
         double mediaFG = 0.0;
         double mediaEFG = 0.0;
         double mediaTS = 0.0;
-      
-        
+
         // 1. Leer la última fila del Excel
-        try (FileInputStream fis = new FileInputStream(new File(FILE_PATH +"_"+nombreEquipo + ".xlsx"));
+        try (FileInputStream fis = new FileInputStream(new File(FILE_PATH + "_" + nombreEquipo + ".xlsx"));
              Workbook workbook = WorkbookFactory.create(fis)) {
 
             Sheet sheet = workbook.getSheet(nombreJugador); // Hoja del jugador
@@ -2147,15 +2102,16 @@ private void guardarGraficosEnPDF(String rutaBarras, String rutaLineas, String r
                 Row row = sheet.getRow(ultimaFila); // Obtener la última fila
 
                 if (row != null) {
-                    
+                    // Suponiendo que FG está en columna 7, eFG en 8, TS en 9
                     mediaFG = row.getCell(7).getNumericCellValue();
                     mediaEFG = row.getCell(8).getNumericCellValue();
                     mediaTS = row.getCell(9).getNumericCellValue();
                 }
             }
         }
-        
-        Document document = new Document();
+
+        // 2. Configuración del documento PDF con márgenes ajustados
+        Document document = new Document(PageSize.A4, 20, 20, 20, 20);
         PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
         document.open();
 
@@ -2163,40 +2119,50 @@ private void guardarGraficosEnPDF(String rutaBarras, String rutaLineas, String r
         BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
         Font fontTitulo = new Font(baseFont, 16);
         Font fontTexto = new Font(baseFont, 12);
-        
+
         Paragraph titulo = new Paragraph("Estadísticas de " + nombreJugador, fontTitulo);
         titulo.setAlignment(Element.ALIGN_CENTER);
         document.add(titulo);
         document.add(new Paragraph("\n"));
 
-        // Añadir gráficos
+        // 3. Crear una tabla para colocar los gráficos y estadísticas
+        PdfPTable tabla = new PdfPTable(2); // 2 columnas
+        tabla.setWidthPercentage(100); // Ancho total de la página
+        tabla.setSpacingBefore(10);
+        tabla.setSpacingAfter(10);
+        tabla.setWidths(new float[]{1, 1}); // Columnas del mismo ancho
+
+        // Imagen del gráfico de barras
         Image imgBarras = Image.getInstance(rutaBarras);
-        imgBarras.scaleToFit(500, 400);
-        imgBarras.setAlignment(Image.ALIGN_CENTER);
-        document.add(imgBarras);
+        imgBarras.scaleToFit(250, 200); // Reducir tamaño
+        PdfPCell celdaBarras = new PdfPCell(imgBarras, true);
+        celdaBarras.setBorder(Rectangle.NO_BORDER);
+        celdaBarras.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-       
-
+        // Imagen del gráfico de líneas
         Image imgLineas = Image.getInstance(rutaLineas);
-        imgLineas.scaleToFit(500, 400);
-        imgLineas.setAlignment(Image.ALIGN_CENTER);
-        document.add(imgLineas);
-        
-        document.add(new Paragraph("\n"));
-        
-        Paragraph titulo2 = new Paragraph("Otras Estadisticas", fontTitulo);
-        document.add(titulo2);
+        imgLineas.scaleToFit(250, 200); // Reducir tamaño
+        PdfPCell celdaLineas = new PdfPCell(imgLineas, true);
+        celdaLineas.setBorder(Rectangle.NO_BORDER);
+        celdaLineas.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-         // Añadir estadísticas finales como texto (organizadas en dos líneas)
-        String linea1 = String.format("FG: %.2f%% \t\t eFG: %.2f%%", mediaFG, mediaEFG);
-        String linea2 = String.format("TS: %.2f%%", mediaTS);
-        
+        // Añadir celdas con gráficos a la tabla
+        tabla.addCell(celdaBarras);
+        tabla.addCell(celdaLineas);
+
+        // Añadir la tabla al documento
+        document.add(tabla);
+
+        // 4. Añadir estadísticas finales centradas
+        String linea1 = String.format("FG Medio: %.2f%% \t\t eFG Medio: %.2f%%", mediaFG, mediaEFG);
+        String linea2 = String.format("TS Medio: %.2f%%", mediaTS);
+
         Paragraph estadisticas = new Paragraph();
         estadisticas.setFont(fontTexto);
+        estadisticas.setAlignment(Element.ALIGN_CENTER);
         estadisticas.add(linea1 + "\n");
         estadisticas.add(linea2);
         document.add(estadisticas);
-        
 
         document.close();
 
