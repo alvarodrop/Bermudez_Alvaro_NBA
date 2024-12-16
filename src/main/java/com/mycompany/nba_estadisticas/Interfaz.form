@@ -15,6 +15,8 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar2">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="Equipo">
@@ -396,6 +398,56 @@
             </Menu>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Size"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jRadioButtonMenuItem1">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup2"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="1"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jRadioButtonMenuItem2">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup2"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="2"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItem2ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jRadioButtonMenuItem3">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup2"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="3"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMenuItem3ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Condiciones Y Servicio"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu2MouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu2ActionPerformed"/>
+          </Events>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -469,32 +521,6 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabelTotalTiros2">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Total tiros de 2"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="6" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabelAnotados3">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Anotados de 3"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JSpinner" name="libresAnotados">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
@@ -510,25 +536,11 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelAnotadosLibres">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Anotados Libres"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="7" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabelTotalTirosLibres">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft JhengHei UI" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Total Tiros Libres"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -569,19 +581,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelTotalTiros3">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Total Tiros de 3"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="3" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JSpinner" name="totalTiros3">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
@@ -612,19 +611,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelAnotados2">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Anotados de 2"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="5" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JSpinner" name="anotados3">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
@@ -637,6 +623,66 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                   <GridBagConstraints gridX="1" gridY="2" gridWidth="-1" gridHeight="1" fill="0" ipadX="20" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Anotados de 3"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Total Tiros de 3"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="3" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Anotados de 2"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="5" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Total Tiros de 2"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="6" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Anotados Libres"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="7" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Total Tiros Libres"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="8" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="0" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -653,19 +699,6 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabelRebotesDefensivos">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Rebotes Defensivos"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JSpinner" name="tapones">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
@@ -678,32 +711,6 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                   <GridBagConstraints gridX="1" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="20" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabelTapones">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Tapones"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabelRobos">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Robos"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -737,6 +744,36 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Rebotes Defensivos"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Robos"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tapones"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
@@ -750,32 +787,6 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabelPerdidas">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Perdidas de Bal&#xf3;n"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="3" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabelAsistencias">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Asistencias"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JSpinner" name="perdidas">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
@@ -821,16 +832,33 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelRebotesOfensivos">
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado10">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Microsoft JhengHei UI" size="12" style="0"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="Asistencias"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado11">
+              <Properties>
                 <Property name="text" type="java.lang.String" value="Rebotes Ofensivos"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="com.mycompany.nba_estadisticas.labelPersonalizado" name="labelPersonalizado12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Perdidas de Bal&#xf3;n"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="0" gridY="3" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="20" insetsLeft="20" insetsBottom="20" insetsRight="20" anchor="10" weightX="0.0" weightY="0.0"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -974,16 +1002,16 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="botonGenerarPDF">
+            <Component class="javax.swing.JButton" name="GraficosPDF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="PDF"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGenerarPDFActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GraficosPDFActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="6" gridWidth="4" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
+                  <GridBagConstraints gridX="0" gridY="7" gridWidth="4" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
                 </Constraint>
               </Constraints>
             </Component>

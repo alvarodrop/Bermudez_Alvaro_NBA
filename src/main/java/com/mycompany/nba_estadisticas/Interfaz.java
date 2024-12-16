@@ -30,6 +30,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
@@ -70,6 +71,7 @@ import org.jfree.chart.ChartUtils;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.CombinedDomainCategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
@@ -81,6 +83,7 @@ public class Interfaz extends javax.swing.JFrame {
     private static double totalFg = 0;
     private static double totalEfg = 0;
     private static int numeroDeJugadores = 0;
+    private JFrame Terminos;
        
     
     private JSpinner anotados3Spinner;
@@ -96,7 +99,7 @@ public class Interfaz extends javax.swing.JFrame {
     private JSpinner rebotesOfSpinner;
     private JSpinner perdidasSpinner;
 
-
+    
     
 
     /**
@@ -105,7 +108,10 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         initComponents();
         setSize(800, 600);
+        Terminos = new Terminos();
+        
         setLocationRelativeTo(null);
+     
     }
 
     /**
@@ -121,34 +127,36 @@ public class Interfaz extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
         jPopupMenu1 = new javax.swing.JPopupMenu();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabelTotalTiros2 = new javax.swing.JLabel();
-        jLabelAnotados3 = new javax.swing.JLabel();
         libresAnotados = new javax.swing.JSpinner();
-        jLabelAnotadosLibres = new javax.swing.JLabel();
         jLabelTotalTirosLibres = new javax.swing.JLabel();
         totalTiros2 = new javax.swing.JSpinner();
         anotados2 = new javax.swing.JSpinner();
-        jLabelTotalTiros3 = new javax.swing.JLabel();
         totalTiros3 = new javax.swing.JSpinner();
         totalTirosLibres = new javax.swing.JSpinner();
-        jLabelAnotados2 = new javax.swing.JLabel();
         anotados3 = new javax.swing.JSpinner();
+        labelPersonalizado1 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado2 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado3 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado4 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado5 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado6 = new com.mycompany.nba_estadisticas.labelPersonalizado();
         jPanel2 = new javax.swing.JPanel();
-        jLabelRebotesDefensivos = new javax.swing.JLabel();
         tapones = new javax.swing.JSpinner();
-        jLabelTapones = new javax.swing.JLabel();
-        jLabelRobos = new javax.swing.JLabel();
         robos = new javax.swing.JSpinner();
         rebotesDefensivos = new javax.swing.JSpinner();
+        labelPersonalizado7 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado8 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado9 = new com.mycompany.nba_estadisticas.labelPersonalizado();
         jPanel3 = new javax.swing.JPanel();
-        jLabelPerdidas = new javax.swing.JLabel();
-        jLabelAsistencias = new javax.swing.JLabel();
         perdidas = new javax.swing.JSpinner();
         rebotesOfensivos = new javax.swing.JSpinner();
         asistencias = new javax.swing.JSpinner();
-        jLabelRebotesOfensivos = new javax.swing.JLabel();
+        labelPersonalizado10 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado11 = new com.mycompany.nba_estadisticas.labelPersonalizado();
+        labelPersonalizado12 = new com.mycompany.nba_estadisticas.labelPersonalizado();
         jPanel4 = new javax.swing.JPanel();
         Calcular = new javax.swing.JButton();
         jLabelNombreJugador = new javax.swing.JLabel();
@@ -158,7 +166,7 @@ public class Interfaz extends javax.swing.JFrame {
         graficoBarras = new javax.swing.JButton();
         graficoLineas = new javax.swing.JButton();
         NombreJugador = new javax.swing.JComboBox<>();
-        botonGenerarPDF = new javax.swing.JButton();
+        GraficosPDF = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         Equipo = new javax.swing.JMenu();
         Atlantico = new javax.swing.JMenu();
@@ -197,6 +205,11 @@ public class Interfaz extends javax.swing.JFrame {
         OklahomaCityThunder = new javax.swing.JRadioButtonMenuItem();
         PortlanTrailBlazers = new javax.swing.JRadioButtonMenuItem();
         UtahJazz = new javax.swing.JRadioButtonMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(173, 216, 230));
@@ -208,24 +221,6 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 420));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabelTotalTiros2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelTotalTiros2.setText("Total tiros de 2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
-        jPanel1.add(jLabelTotalTiros2, gridBagConstraints);
-
-        jLabelAnotados3.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelAnotados3.setText("Anotados de 3");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
-        jPanel1.add(jLabelAnotados3, gridBagConstraints);
-
         libresAnotados.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         libresAnotados.setPreferredSize(new java.awt.Dimension(64, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -236,17 +231,7 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel1.add(libresAnotados, gridBagConstraints);
 
-        jLabelAnotadosLibres.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelAnotadosLibres.setText("Anotados Libres");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
-        jPanel1.add(jLabelAnotadosLibres, gridBagConstraints);
-
         jLabelTotalTirosLibres.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelTotalTirosLibres.setText("Total Tiros Libres");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
@@ -273,15 +258,6 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel1.add(anotados2, gridBagConstraints);
 
-        jLabelTotalTiros3.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelTotalTiros3.setText("Total Tiros de 3");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
-        jPanel1.add(jLabelTotalTiros3, gridBagConstraints);
-
         totalTiros3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         totalTiros3.setPreferredSize(new java.awt.Dimension(64, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -302,15 +278,6 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel1.add(totalTirosLibres, gridBagConstraints);
 
-        jLabelAnotados2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelAnotados2.setText("Anotados de 2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
-        jPanel1.add(jLabelAnotados2, gridBagConstraints);
-
         anotados3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         anotados3.setPreferredSize(new java.awt.Dimension(64, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -321,18 +288,51 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel1.add(anotados3, gridBagConstraints);
 
+        labelPersonalizado1.setText("Anotados de 3");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
+        jPanel1.add(labelPersonalizado1, gridBagConstraints);
+
+        labelPersonalizado2.setText("Total Tiros de 3");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
+        jPanel1.add(labelPersonalizado2, gridBagConstraints);
+
+        labelPersonalizado3.setText("Anotados de 2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
+        jPanel1.add(labelPersonalizado3, gridBagConstraints);
+
+        labelPersonalizado4.setText("Total Tiros de 2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
+        jPanel1.add(labelPersonalizado4, gridBagConstraints);
+
+        labelPersonalizado5.setText("Anotados Libres");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
+        jPanel1.add(labelPersonalizado5, gridBagConstraints);
+
+        labelPersonalizado6.setText("Total Tiros Libres");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
+        jPanel1.add(labelPersonalizado6, gridBagConstraints);
+
         jTabbedPane1.addTab("Ataque", jPanel1);
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        jLabelRebotesDefensivos.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelRebotesDefensivos.setText("Rebotes Defensivos");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        jPanel2.add(jLabelRebotesDefensivos, gridBagConstraints);
 
         tapones.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         tapones.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -342,24 +342,6 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel2.add(tapones, gridBagConstraints);
-
-        jLabelTapones.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelTapones.setText("Tapones");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        jPanel2.add(jLabelTapones, gridBagConstraints);
-
-        jLabelRobos.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelRobos.setText("Robos");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        jPanel2.add(jLabelRobos, gridBagConstraints);
 
         robos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         robos.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -379,27 +361,30 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel2.add(rebotesDefensivos, gridBagConstraints);
 
-        jTabbedPane1.addTab("Defensa", jPanel2);
-
-        jPanel3.setLayout(new java.awt.GridBagLayout());
-
-        jLabelPerdidas.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelPerdidas.setText("Perdidas de Balón");
+        labelPersonalizado7.setText("Rebotes Defensivos");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        jPanel3.add(jLabelPerdidas, gridBagConstraints);
+        jPanel2.add(labelPersonalizado7, gridBagConstraints);
 
-        jLabelAsistencias.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelAsistencias.setText("Asistencias");
+        labelPersonalizado8.setText("Robos");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        jPanel3.add(jLabelAsistencias, gridBagConstraints);
+        jPanel2.add(labelPersonalizado8, gridBagConstraints);
+
+        labelPersonalizado9.setText("Tapones");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(labelPersonalizado9, gridBagConstraints);
+
+        jTabbedPane1.addTab("Defensa", jPanel2);
+
+        jPanel3.setLayout(new java.awt.GridBagLayout());
 
         perdidas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
         perdidas.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -428,14 +413,26 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel3.add(asistencias, gridBagConstraints);
 
-        jLabelRebotesOfensivos.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabelRebotesOfensivos.setText("Rebotes Ofensivos");
+        labelPersonalizado10.setText("Asistencias");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(labelPersonalizado10, gridBagConstraints);
+
+        labelPersonalizado11.setText("Rebotes Ofensivos");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
-        jPanel3.add(jLabelRebotesOfensivos, gridBagConstraints);
+        jPanel3.add(labelPersonalizado11, gridBagConstraints);
+
+        labelPersonalizado12.setText("Perdidas de Balón");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel3.add(labelPersonalizado12, gridBagConstraints);
 
         jTabbedPane1.addTab("Otros", jPanel3);
 
@@ -544,18 +541,17 @@ public class Interfaz extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 40;
         jPanel4.add(NombreJugador, gridBagConstraints);
 
-        botonGenerarPDF.setText("PDF");
-        botonGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
+        GraficosPDF.setText("PDF");
+        GraficosPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGenerarPDFActionPerformed(evt);
+                GraficosPDFActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        jPanel4.add(botonGenerarPDF, gridBagConstraints);
+        jPanel4.add(GraficosPDF, gridBagConstraints);
 
         jTabbedPane1.addTab("Menu", jPanel4);
 
@@ -857,6 +853,51 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenuBar2.add(Equipo);
 
+        jMenu1.setText("Size");
+
+        buttonGroup2.add(jRadioButtonMenuItem1);
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("1");
+        jRadioButtonMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem1);
+
+        buttonGroup2.add(jRadioButtonMenuItem2);
+        jRadioButtonMenuItem2.setText("2");
+        jRadioButtonMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem2);
+
+        buttonGroup2.add(jRadioButtonMenuItem3);
+        jRadioButtonMenuItem3.setText("3");
+        jRadioButtonMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem3);
+
+        jMenuBar2.add(jMenu1);
+
+        jMenu2.setText("Condiciones Y Servicio");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+        jMenuBar2.add(jMenu2);
+
         setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -878,21 +919,51 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private double calcularFG() {
-        // Obtener valores
-        int tiros2 = (int) anotados2.getValue();
-        int tiros3 = (int) anotados3.getValue();
-        int tirosTotales = (int) totalTiros2.getValue() + (int) totalTiros3.getValue();
+   private double calcularFG() {
+    // Obtener valores
+    int tiros2 = (int) anotados2.getValue();
+    int tiros3 = (int) anotados3.getValue();
+    int total2 = (int) totalTiros2.getValue();
+    int total3 = (int) totalTiros3.getValue();
+    int tirosTotales = total2 + total3;
+    
+    int intentosTirosLibres = Integer.parseInt(totalTirosLibres.getValue().toString());
+    int anotadosTirosLibres = (int) libresAnotados.getValue();
 
-        // Validar tiros totales
-        if (tirosTotales == 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros no puede ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return -1; // Indicar error
-        }
+    if(anotadosTirosLibres > intentosTirosLibres){
+        javax.swing.JOptionPane.showMessageDialog(this, "No puede haber mas tiros libres anotados que intentados", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return -1;
+    }
 
-        // Calcular FG%
-        return ((double) (tiros2 + tiros3) / tirosTotales) * 100;
+    // Validar que los tiros no sean mayores que los totales
+    if (tirosTotales == 0) {
+        mostrarMensajeError("El total de tiros no puede ser 0");
+        return -1; // Indicar error
+    }
+
+   
+
+    if (total3 < tiros3) {
+        mostrarMensajeError("Hay más anotados de 3 que total tirados de 3");
+        return -1;
+    }
+
+    if (total2 < tiros2) {
+        mostrarMensajeError("Hay más anotados de 2 que total tirados de 2");
+        return -1;
+    }
+    
+    
+
+    // Calcular FG%
+    return ((double) (tiros2 + tiros3) / tirosTotales) * 100;
 }
+
+    // Método para mostrar el mensaje de error
+    private void mostrarMensajeError(String mensaje) {
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+
 
     private double calcularEFG() {
        // Obtener valores
@@ -905,6 +976,8 @@ public class Interfaz extends javax.swing.JFrame {
            javax.swing.JOptionPane.showMessageDialog(this, "El total de tiros no puede ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
            return -1; // Indicar error
        }
+       
+       
 
        // Calcular eFG%
        return ((tiros2 + (0.5 * tiros3)) / tirosTotales) * 100;
@@ -922,6 +995,8 @@ public class Interfaz extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Los intentos totales de tiros no pueden ser 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return -1; // Indicar error
         }
+        
+        
 
         // Calcular %TS
         return (puntosTotales / (2.0 * (intentosTirosCampo + 0.44 * intentosTirosLibres))) * 100;
@@ -941,6 +1016,7 @@ public class Interfaz extends javax.swing.JFrame {
         int anotadosTirosCampo = (int) anotados2.getValue() + (int) anotados3.getValue();
         int intentosTirosLibres = Integer.parseInt(totalTirosLibres.getValue().toString());
         int anotadosTirosLibres = (int) libresAnotados.getValue();
+       
 
         // Calcular valoración
         return (puntosTotales + rebotesTotales + asistenciasTotales + robosTotales + taponesTotales)
@@ -1475,27 +1551,144 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PartidoActionPerformed
 
-    private void botonGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarPDFActionPerformed
+    private void jRadioButtonMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem3ActionPerformed
         // TODO add your handling code here:
-        String nombreEquipo = obtenerNombreEquipo();   // Suponiendo que tienes un JTextField para el equipo
-        String nombreJugador = obtenerNombreJugador();
-        // Llamar al método para generar el gráfico y PDF
-        //generarPDF(nombreEquipo, nombreJugador);
-        String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
+        int valorSize = 3;
+        labelPersonalizado1.size(valorSize);
+        labelPersonalizado2.size(valorSize);
+        labelPersonalizado3.size(valorSize);
+        labelPersonalizado4.size(valorSize);
+        labelPersonalizado5.size(valorSize);
+        labelPersonalizado6.size(valorSize);
+        labelPersonalizado7.size(valorSize);
+        labelPersonalizado8.size(valorSize);
+        labelPersonalizado9.size(valorSize);
+        labelPersonalizado10.size(valorSize);
+        labelPersonalizado11.size(valorSize);
+        labelPersonalizado12.size(valorSize);
         
-        String rutaBaseExcel = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\nba_estadisticas";
+    }//GEN-LAST:event_jRadioButtonMenuItem3ActionPerformed
 
+    private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        int valorSize = 1;
+        labelPersonalizado1.size(valorSize);
+        labelPersonalizado2.size(valorSize);
+        labelPersonalizado3.size(valorSize);
+        labelPersonalizado4.size(valorSize);
+        labelPersonalizado5.size(valorSize);
+        labelPersonalizado6.size(valorSize);
+        labelPersonalizado7.size(valorSize);
+        labelPersonalizado8.size(valorSize);
+        labelPersonalizado9.size(valorSize);
+        labelPersonalizado10.size(valorSize);
+        labelPersonalizado11.size(valorSize);
+        labelPersonalizado12.size(valorSize);
+        
+    }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
 
-        // Crear el primer gráfico (ejemplo: gráfico de líneas)
-        JFreeChart grafico1 = generarGraficoLineas(nombreEquipo, nombreJugador);
+    private void jRadioButtonMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        int valorSize = 2;
+        labelPersonalizado1.size(valorSize);
+        labelPersonalizado2.size(valorSize);
+        labelPersonalizado3.size(valorSize);
+        labelPersonalizado4.size(valorSize);
+        labelPersonalizado5.size(valorSize);
+        labelPersonalizado6.size(valorSize);
+        labelPersonalizado7.size(valorSize);
+        labelPersonalizado8.size(valorSize);
+        labelPersonalizado9.size(valorSize);
+        labelPersonalizado10.size(valorSize);
+        labelPersonalizado11.size(valorSize);
+        labelPersonalizado12.size(valorSize);
+    }//GEN-LAST:event_jRadioButtonMenuItem2ActionPerformed
 
-        // Crear el segundo gráfico (ejemplo: gráfico de barras o algún otro)
-        JFreeChart grafico2 = generarGraficoBarras(nombreEquipo, nombreJugador);
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+        // Crear la ventana de Términos si no ha sido creada previamente
+        
+        if (Terminos == null) {
+            Terminos = new JFrame("Términos y Condiciones"); // Aquí se crea el JFrame con un título
+            Terminos.setSize(400, 300);  // Tamaño de la ventana
+            Terminos.setLocationRelativeTo(null); // Centrar la ventana
+        }
 
-        // Generar el PDF con ambos gráficos
-        generarPDFConGraficos(rutaBaseGraficas, nombreJugador, grafico1, grafico2);     
-    }//GEN-LAST:event_botonGenerarPDFActionPerformed
+        // Hacer visible la ventana de términos
+        Terminos.setVisible(true);
+    }//GEN-LAST:event_jMenu2ActionPerformed
 
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+               // TODO add your handling code here:
+        // Crear la ventana de Términos si no ha sido creada previamente
+        if (Terminos == null) {
+            Terminos = new JFrame("Términos y Condiciones"); // Aquí se crea el JFrame con un título
+            Terminos.setSize(400, 300);  // Tamaño de la ventana
+            Terminos.setLocationRelativeTo(null); // Centrar la ventana
+        }
+
+        // Hacer visible la ventana de términos
+        Terminos.setVisible(true);
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void GraficosPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraficosPDFActionPerformed
+        // TODO add your handling code here:
+        String nombreEquipo = obtenerNombreEquipo();
+        String nombreJugador = obtenerNombreJugador();
+       
+        generarGraficos(nombreEquipo, nombreJugador);
+                
+    }//GEN-LAST:event_GraficosPDFActionPerformed
+
+    public void GenerarPDF(JFreeChart grafico1, JFreeChart grafico2) {
+        try {
+            // Ruta del archivo PDF
+            String rutaPDF = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
+
+            // Crear el documento PDF
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+            document.open();
+
+            // Crear imágenes temporales para los gráficos
+            File archivoGrafico1 = new File("grafico_barras_temp.png");
+            File archivoGrafico2 = new File("grafico_lineas_temp.png");
+
+            // Guardar gráficos como imágenes PNG
+            ChartUtils.saveChartAsPNG(archivoGrafico1, grafico1, 800, 600);
+            ChartUtils.saveChartAsPNG(archivoGrafico2, grafico2, 800, 600);
+
+            // Cargar las imágenes al PDF
+            Image imagenGrafico1 = Image.getInstance(archivoGrafico1.getAbsolutePath());
+            Image imagenGrafico2 = Image.getInstance(archivoGrafico2.getAbsolutePath());
+
+            // Ajustar las imágenes al tamaño de página
+            imagenGrafico1.scaleToFit(500, 400);
+            imagenGrafico2.scaleToFit(500, 400);
+
+            // Agregar las imágenes al documento
+            document.add(imagenGrafico1);
+            document.add(imagenGrafico2);
+
+            // Cerrar el documento
+            document.close();
+
+            // Eliminar archivos temporales
+            archivoGrafico1.delete();
+            archivoGrafico2.delete();
+
+            // Mensaje de éxito
+            JOptionPane.showMessageDialog(null, "PDF generado exitosamente en: " + rutaPDF,
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    
  public JFreeChart generarGraficoBarras(String nombreEquipo, String nombreJugador) {
     try {
         // Ruta base para guardar las gráficas
@@ -1567,10 +1760,6 @@ public class Interfaz extends javax.swing.JFrame {
         String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".png";
         ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);  // Dimensiones del gráfico
         
-        // Guardar el gráfico en un archivo PDF
-        String nombreArchivoPDF = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".pdf";
-        guardarGraficoEnPDF(nombreArchivo, nombreArchivoPDF);
-
 
         // Mostrar mensaje de éxito
         JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
@@ -1595,184 +1784,93 @@ public class Interfaz extends javax.swing.JFrame {
 
     
     public JFreeChart generarGraficoLineas(String nombreEquipo, String nombreJugador) {
-    try {
-        // Ruta base para guardar las gráficas
-        String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
+        try {
+            // Ruta base para guardar las gráficas
+            String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
 
-        // Crear una carpeta específica para el jugador dentro de la ruta base
-        File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
-        if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
-            throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
-        }
-
-        // Cargar el archivo Excel del equipo correspondiente
-        FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
-        Workbook workbook = new XSSFWorkbook(file);
-
-        // Buscar la hoja que corresponde al jugador
-        Sheet sheet = workbook.getSheet(nombreJugador);
-        if (sheet == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
-                                          "Error", JOptionPane.ERROR_MESSAGE);
-            workbook.close();
-            return null;  // Retorna null si no se encuentra la hoja
-        }
-
-        // Crear un dataset vacío para el gráfico
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        // Iterar sobre las filas de la hoja del jugador
-        for (Row row : sheet) {
-            if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
-                String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
-                double rebotesTotales= row.getCell(6).getNumericCellValue();  // Columna I (rebotes defensivos)                
-               
-
-                // Agregar los datos al dataset para el gráfico de líneas
-                dataset.addValue(rebotesTotales, "Rebotes", partido); // Agregar los rebotes totales por partido
+            // Crear una carpeta específica para el jugador dentro de la ruta base
+            File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
+            if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
+                throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
             }
-        }
-        workbook.close();
 
-        // Crear el gráfico de líneas
-        JFreeChart chart = ChartFactory.createLineChart(
-                "Rebotes de " + nombreJugador,  // Título del gráfico
-                "Partido",                      // Etiqueta del eje X
-                "Rebotes",                      // Etiqueta del eje Y
-                dataset                         // Datos
-        );
+            // Cargar el archivo Excel del equipo correspondiente
+            FileInputStream file = new FileInputStream(new File(nombreEquipo + ".xlsx"));
+            Workbook workbook = new XSSFWorkbook(file);
 
-        // Personalizar el gráfico
-        chart.setBackgroundPaint(Color.white);
-        chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+            // Buscar la hoja que corresponde al jugador
+            Sheet sheet = workbook.getSheet(nombreJugador);
+            if (sheet == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                              "Error", JOptionPane.ERROR_MESSAGE);
+                workbook.close();
+                return null;  // Retorna null si no se encuentra la hoja
+            }
 
-        // Crear el panel para el gráfico
-        ChartPanel chartPanel = new ChartPanel(chart);
+            // Crear un dataset vacío para el gráfico
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        // Crear una ventana nueva para mostrar el gráfico
-        JFrame graficoFrame = new JFrame("Gráfico de Rebotes de " + nombreJugador);
-        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        graficoFrame.getContentPane().add(chartPanel);
-        graficoFrame.pack();
-        graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
-        graficoFrame.setVisible(true);
+            // Iterar sobre las filas de la hoja del jugador
+            for (Row row : sheet) {
+                if (row.getRowNum() > 0) {  // Ignorar la primera fila (cabecera)
+                    String partido = row.getCell(0).getStringCellValue();  // Columna A (nombre del partido)
+                    double rebotesTotales= row.getCell(6).getNumericCellValue();  // Columna I (rebotes defensivos)                
 
-        // Guardar el gráfico en la carpeta del jugador
-        String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
-        ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);  // Dimensiones del gráfico
-        
-        
-        // Guardar el gráfico en un archivo PDF
-        String nombreArchivoPDF = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".pdf";
-        guardarGraficoEnPDF(nombreArchivo, nombreArchivoPDF);
 
-        // Mostrar mensaje de éxito
-        JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
-                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    // Agregar los datos al dataset para el gráfico de líneas
+                    dataset.addValue(rebotesTotales, "Rebotes", partido); // Agregar los rebotes totales por partido
+                }
+            }
+            workbook.close();
 
-        return chart;  // Retorna el gráfico creado
+            // Crear el gráfico de líneas
+            JFreeChart chart = ChartFactory.createLineChart(
+                    "Rebotes de " + nombreJugador,  // Título del gráfico
+                    "Partido",                      // Etiqueta del eje X
+                    "Rebotes",                      // Etiqueta del eje Y
+                    dataset                         // Datos
+            );
 
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel o al crear carpetas: " + e.getMessage(),
-                                      "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-        return null;  // Retorna null si hay un error
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
-                                      "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-        return null;  // Retorna null si hay un error
-    }
-}
-    private void generarPDFConGraficos(String rutaBaseGraficas, String nombreJugador, JFreeChart grafico1, JFreeChart grafico2) {
-    try {
-        // Crear carpeta para el jugador si no existe
-        File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
-        if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
-            JOptionPane.showMessageDialog(null, "No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath(),
+            // Personalizar el gráfico
+            chart.setBackgroundPaint(Color.white);
+            chart.getCategoryPlot().setDomainGridlinePaint(Color.gray);
+
+            // Crear el panel para el gráfico
+            ChartPanel chartPanel = new ChartPanel(chart);
+
+            // Crear una ventana nueva para mostrar el gráfico
+            JFrame graficoFrame = new JFrame("Gráfico de Rebotes de " + nombreJugador);
+            graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            graficoFrame.getContentPane().add(chartPanel);
+            graficoFrame.pack();
+            graficoFrame.setLocationRelativeTo(null);  // Centrar la ventana
+            graficoFrame.setVisible(true);
+
+            // Guardar el gráfico en la carpeta del jugador
+            String nombreArchivo = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
+            ChartUtils.saveChartAsPNG(new File(nombreArchivo), chart, 800, 600);  // Dimensiones del gráfico
+
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Gráfico guardado en: " + nombreArchivo,
+                                          "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            return chart;  // Retorna el gráfico creado
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo Excel o al crear carpetas: " + e.getMessage(),
                                           "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            e.printStackTrace();
+            return null;  // Retorna null si hay un error
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el gráfico: " + e.getMessage(),
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return null;  // Retorna null si hay un error
         }
-
-        // Guardar el gráfico 1
-        String archivoGrafico1 = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
-        ChartUtils.saveChartAsPNG(new File(archivoGrafico1), grafico1, 800, 600);
-
-        // Guardar el gráfico 2
-        String archivoGrafico2 = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".png";
-        ChartUtils.saveChartAsPNG(new File(archivoGrafico2), grafico2, 800, 600);
-
-        // Crear el archivo PDF
-        String archivoPDF = carpetaJugador.getAbsolutePath() + File.separator + "Estadisticas_" + nombreJugador + ".pdf";
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(archivoPDF));
-
-        document.open();
-        document.add(new Paragraph("Estadísticas de " + nombreJugador));
-        document.add(new Paragraph(" "));
-
-        // Agregar los gráficos al PDF
-        Image img1 = Image.getInstance(archivoGrafico1);
-        img1.scaleToFit(500, 300); // Ajustar tamaño del gráfico 1
-        document.add(img1);
-
-        document.add(new Paragraph(" ")); // Espaciado
-
-        Image img2 = Image.getInstance(archivoGrafico2);
-        img2.scaleToFit(500, 300); // Ajustar tamaño del gráfico 2
-        document.add(img2);
-
-        document.close();
-
-        // Mostrar mensaje de éxito
-        JOptionPane.showMessageDialog(null, "PDF generado en: " + archivoPDF,
-                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + e.getMessage(),
-                                      "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
     }
-}
-
-
-public void guardarGraficoEnPDF(String rutaImagen, String rutaPDF) {
-    try {
-        // Crear el documento PDF
-        Document documento = new Document(PageSize.A4);
-        PdfWriter.getInstance(documento, new FileOutputStream(rutaPDF));
-
-        // Abrir el documento para escribir
-        documento.open();
-
-        // Añadir título al PDF
-        documento.add(new Paragraph("Gráfico de Puntos", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18)));
-        documento.add(new Paragraph("\n")); // Espaciado
-
-        // Leer la imagen del gráfico
-        Image imagen = Image.getInstance(rutaImagen);
-        
-        // Ajustar la imagen al ancho de la página y mantener proporciones
-        imagen.scaleToFit(PageSize.A4.getWidth() - 50, PageSize.A4.getHeight() - 100);
-        imagen.setAlignment(Image.ALIGN_CENTER);
-
-        // Añadir la imagen al documento
-        documento.add(imagen);
-
-        // Cerrar el documento
-        documento.close();
-
-        // Mostrar mensaje de éxito
-        JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + rutaPDF,
-                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al guardar el gráfico en PDF: " + e.getMessage(),
-                                      "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
-}
-
     
-    
+  
     private String obtenerNombreJugador() {
         return (String) NombreJugador.getSelectedItem(); // Devuelve el jugador seleccionado para
     }
@@ -1962,6 +2060,154 @@ public void guardarGraficoEnPDF(String rutaImagen, String rutaPDF) {
     }
     
     
+    public void generarGraficos(String nombreEquipo, String nombreJugador) {
+    try {
+        // Ruta base para guardar las gráficas
+        String rutaBaseGraficas = "C:\\GradoSuperior\\2º\\DI\\NBA_Estadisticas\\NBA_Estadisticas\\src\\main\\java\\com\\mycompany\\Graficas";
+
+        // Crear una carpeta específica para el jugador
+        File carpetaJugador = new File(rutaBaseGraficas, nombreJugador);
+        if (!carpetaJugador.exists() && !carpetaJugador.mkdirs()) {
+            throw new IOException("No se pudo crear la carpeta: " + carpetaJugador.getAbsolutePath());
+        }
+
+        // Cargar archivo Excel del equipo
+        FileInputStream file = new FileInputStream(new File(FILE_PATH +"_"+nombreEquipo + ".xlsx"));
+        Workbook workbook = new XSSFWorkbook(file);
+
+        // Buscar la hoja correspondiente al jugador
+        Sheet sheet = workbook.getSheet(nombreJugador);
+        if (sheet == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró la hoja del jugador: " + nombreJugador,
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            workbook.close();
+            return;
+        }
+
+        // Crear datasets para ambas gráficas
+        DefaultCategoryDataset datasetBarras = new DefaultCategoryDataset();
+        DefaultCategoryDataset datasetLineas = new DefaultCategoryDataset();
+
+        // Iterar por las filas y llenar los datasets
+        for (Row row : sheet) {
+            if (row.getRowNum() > 0) { // Ignorar encabezados
+                String partido = row.getCell(0).getStringCellValue();  // Partido
+                double puntos = row.getCell(8).getNumericCellValue(); // Puntos
+                double rebotesTotales = row.getCell(6).getNumericCellValue(); // Rebotes totales
+
+                datasetBarras.addValue(puntos, "Puntos", partido); // Para barras
+                datasetLineas.addValue(rebotesTotales, "Rebotes", partido); // Para líneas
+            }
+        }
+        workbook.close();
+
+        // Crear gráficas
+        JFreeChart graficoBarras = ChartFactory.createBarChart(
+                "Puntos por Partido de " + nombreJugador, "Partido", "Puntos", datasetBarras);
+
+        JFreeChart graficoLineas = ChartFactory.createLineChart(
+                "Rebotes por Partido de " + nombreJugador, "Partido", "Rebotes", datasetLineas);
+
+        // Guardar las gráficas en PNG
+        String archivoBarrasPNG = carpetaJugador.getAbsolutePath() + File.separator + "Barras_" + nombreJugador + ".png";
+        String archivoLineasPNG = carpetaJugador.getAbsolutePath() + File.separator + "Lineas_" + nombreJugador + ".png";
+        ChartUtils.saveChartAsPNG(new File(archivoBarrasPNG), graficoBarras, 800, 600);
+        ChartUtils.saveChartAsPNG(new File(archivoLineasPNG), graficoLineas, 800, 600);
+
+        // Crear un PDF con ambas gráficas
+        String archivoPDF = carpetaJugador.getAbsolutePath() + File.separator + "Graficas_" + nombreJugador + ".pdf";
+        guardarGraficosEnPDF(archivoBarrasPNG, archivoLineasPNG, archivoPDF, nombreJugador,nombreEquipo);
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(null, "Gráficas y PDF generados en: " + carpetaJugador.getAbsolutePath(),
+                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al generar las gráficas: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
+private void guardarGraficosEnPDF(String rutaBarras, String rutaLineas, String rutaPDF, String nombreJugador, String nombreEquipo) {
+    try {
+        // Variables para las medias
+        double mediaFG = 0.0;
+        double mediaEFG = 0.0;
+        double mediaTS = 0.0;
+      
+        
+        // 1. Leer la última fila del Excel
+        try (FileInputStream fis = new FileInputStream(new File(FILE_PATH +"_"+nombreEquipo + ".xlsx"));
+             Workbook workbook = WorkbookFactory.create(fis)) {
+
+            Sheet sheet = workbook.getSheet(nombreJugador); // Hoja del jugador
+            if (sheet != null) {
+                int ultimaFila = sheet.getLastRowNum(); // Última fila escrita
+                Row row = sheet.getRow(ultimaFila); // Obtener la última fila
+
+                if (row != null) {
+                    
+                    mediaFG = row.getCell(7).getNumericCellValue();
+                    mediaEFG = row.getCell(8).getNumericCellValue();
+                    mediaTS = row.getCell(9).getNumericCellValue();
+                }
+            }
+        }
+        
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+        document.open();
+
+        // Añadir título
+        BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+        Font fontTitulo = new Font(baseFont, 16);
+        Font fontTexto = new Font(baseFont, 12);
+        
+        Paragraph titulo = new Paragraph("Estadísticas de " + nombreJugador, fontTitulo);
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        document.add(titulo);
+        document.add(new Paragraph("\n"));
+
+        // Añadir gráficos
+        Image imgBarras = Image.getInstance(rutaBarras);
+        imgBarras.scaleToFit(500, 400);
+        imgBarras.setAlignment(Image.ALIGN_CENTER);
+        document.add(imgBarras);
+
+       
+
+        Image imgLineas = Image.getInstance(rutaLineas);
+        imgLineas.scaleToFit(500, 400);
+        imgLineas.setAlignment(Image.ALIGN_CENTER);
+        document.add(imgLineas);
+        
+        document.add(new Paragraph("\n"));
+        
+        Paragraph titulo2 = new Paragraph("Otras Estadisticas", fontTitulo);
+        document.add(titulo2);
+
+         // Añadir estadísticas finales como texto (organizadas en dos líneas)
+        String linea1 = String.format("FG: %.2f%% \t\t eFG: %.2f%%", mediaFG, mediaEFG);
+        String linea2 = String.format("TS: %.2f%%", mediaTS);
+        
+        Paragraph estadisticas = new Paragraph();
+        estadisticas.setFont(fontTexto);
+        estadisticas.add(linea1 + "\n");
+        estadisticas.add(linea2);
+        document.add(estadisticas);
+        
+
+        document.close();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al guardar el PDF: " + e.getMessage(),
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1980,6 +2226,7 @@ public void guardarGraficoEnPDF(String rutaImagen, String rutaPDF) {
     private javax.swing.JMenu Equipo;
     private javax.swing.JButton Excel;
     private javax.swing.JRadioButtonMenuItem GoldenStateWarriors;
+    private javax.swing.JButton GraficosPDF;
     private javax.swing.JRadioButtonMenuItem HustonRockets;
     private javax.swing.JRadioButtonMenuItem IndianaPacers;
     private javax.swing.JRadioButtonMenuItem LAClippers;
@@ -2009,32 +2256,38 @@ public void guardarGraficoEnPDF(String rutaImagen, String rutaPDF) {
     private javax.swing.JSpinner anotados2;
     private javax.swing.JSpinner anotados3;
     private javax.swing.JSpinner asistencias;
-    private javax.swing.JButton botonGenerarPDF;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton graficoBarras;
     private javax.swing.JButton graficoLineas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelAnotados2;
-    private javax.swing.JLabel jLabelAnotados3;
-    private javax.swing.JLabel jLabelAnotadosLibres;
-    private javax.swing.JLabel jLabelAsistencias;
     private javax.swing.JLabel jLabelNombreJugador;
-    private javax.swing.JLabel jLabelPerdidas;
-    private javax.swing.JLabel jLabelRebotesDefensivos;
-    private javax.swing.JLabel jLabelRebotesOfensivos;
-    private javax.swing.JLabel jLabelRobos;
-    private javax.swing.JLabel jLabelTapones;
-    private javax.swing.JLabel jLabelTotalTiros2;
-    private javax.swing.JLabel jLabelTotalTiros3;
     private javax.swing.JLabel jLabelTotalTirosLibres;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado1;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado10;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado11;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado12;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado2;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado3;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado4;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado5;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado6;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado7;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado8;
+    private com.mycompany.nba_estadisticas.labelPersonalizado labelPersonalizado9;
     private javax.swing.JSpinner libresAnotados;
     private javax.swing.JSpinner perdidas;
     private javax.swing.JSpinner rebotesDefensivos;
@@ -2045,4 +2298,5 @@ public void guardarGraficoEnPDF(String rutaImagen, String rutaPDF) {
     private javax.swing.JSpinner totalTiros3;
     private javax.swing.JSpinner totalTirosLibres;
     // End of variables declaration//GEN-END:variables
+
 }
